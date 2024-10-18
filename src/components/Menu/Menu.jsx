@@ -1,12 +1,17 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
+import { IoChevronUp } from "react-icons/io5";
+import { IoStar } from "react-icons/io5";
+import { IoChevronDown } from "react-icons/io5";
+import { CLOUDINARY_IMG_URL, IMG_SLUG_URL } from "../../utils/Constants";
+import FoodMenuCard from "./FoodMenuCard";
 
 const Menu = ({ menuData }) => {
-  // console.log(menuData);
-
   return (
     <>
-      <div className="tracking-widest text-[16px] font-semibold">MENU</div>
+      <div className="tracking-widest text-[16px] font-semibold text-center">
+        MENU
+      </div>
 
       {/* Search Div */}
       <div className="relative flex items-center justify-center bg-gray-100 border border-gray-100 py-3 rounded-xl my-5 cursor-pointer">
@@ -20,25 +25,9 @@ const Menu = ({ menuData }) => {
 
       {/* Restaurant Menu */}
       {menuData.map((menuItem, index) => {
-        const { title, itemCards } = menuItem.card.card;
-        // console.log("Item Crda", itemCards);
-        // SS : 7:40:00
         return (
-          <div
-            key={index}
-            className="flex items-center gap-4 text-sm font-medium text-gray-700"
-          >
-            <div>
-              {title} ({itemCards.length})
-              {itemCards.map((item, i) => {
-                const allItems = item.card.info;
-                return (
-                  <div className="my-5" key={i}>
-                    <div className="">{allItems.name}</div>
-                  </div>
-                );
-              })}
-            </div>
+          <div key={index}>
+            <FoodMenuCard menuItem={menuItem} index={index} />
           </div>
         );
       })}

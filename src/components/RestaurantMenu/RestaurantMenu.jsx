@@ -5,7 +5,6 @@ import { IMG_SLUG_URL } from "../../utils/Constants";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import Discounts from "../Discount/Discounts";
 import Menu from "../Menu/Menu";
-import { data } from "autoprefixer";
 
 const RestaurantMenu = () => {
   const obj = useParams();
@@ -18,15 +17,18 @@ const RestaurantMenu = () => {
   const [discountData, setDiscountData] = useState([]);
   const [translateValue, setTranslateValue] = useState(0);
 
+  let dataFetched = false;
+
   async function fetchData() {
     const res = await fetch(
       `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=21.99740&lng=79.00110&restaurantId=${resId}&submitAction=ENTER`
     );
     const data = await res.json();
+    dataFetched = true;
     // Filter out the actual menu cards
     const actualMenuData =
       (data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards).filter(
-        (data) => data?.card?.card?.itemCards
+        (data) => data?.card?.card?.itemCards || data?.card?.card?.categories
       );
 
     setResInfo(data?.data?.cards[2].card?.card?.info);
@@ -34,12 +36,11 @@ const RestaurantMenu = () => {
       data?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers
     );
     setMenuData(actualMenuData);
-    // console.log(menuData);
   }
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [dataFetched]);
 
   const handlePrev = () => {
     if (translateValue <= 0) {

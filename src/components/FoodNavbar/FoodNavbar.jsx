@@ -13,26 +13,21 @@ const FoodNavbar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // fetchData();
-    dispatch(getAllData());
-  }, []);
+    try {
+      dispatch(getAllData());
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [data]);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
+
     setTitle(data?.data?.cards[0].card?.card?.header?.title);
     if (data != "") {
       setfoodItemNav(data?.data?.cards[0].card?.card?.imageGridCards?.info);
     }
   }, [data]);
-
-  // async function fetchData() {
-  //   const data = await fetch(
-  //     "https://instafood.onrender.com/api/restaurants?lat=12.9351929&lng=77.62448069999999"
-  //   );
-  //   const res = await data.json();
-  //   console.log(res?.data?.cards[0].card?.card?.imageGridCards?.info);
-  //   setfoodItemNav(res?.data?.cards[0].card?.card?.imageGridCards?.info);
-  // }
 
   const handlePrev = () => {
     if (translateValue <= 0) {
@@ -80,15 +75,16 @@ const FoodNavbar = () => {
         </div>
       </div>
       <div className={`flex gap-6 overflow-x-scroll px-10 scrolling`}>
-        {foodItemNav.map((item) => (
-          <img
-            key={item.id}
-            src={`${IMG_SLUG_URL}${item.imageId}`}
-            alt={item.restaurantName}
-            className={`w-[9rem] cursor-pointer transition-all duration-700`}
-            style={{ translate: `-${translateValue}rem` }}
-          />
-        ))}
+        {foodItemNav.length > 0 &&
+          foodItemNav.map((item) => (
+            <img
+              key={item.id}
+              src={`${IMG_SLUG_URL}${item.imageId}`}
+              alt={item.restaurantName}
+              className={`w-[9rem] cursor-pointer transition-all duration-700`}
+              style={{ translate: `-${translateValue}rem` }}
+            />
+          ))}
       </div>
       <hr className="border-[1px] m-10" />
     </>
