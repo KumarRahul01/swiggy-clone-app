@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Gilroy", sans-serif;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrolling::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrolling {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Giving Shadow to image */
+.image {
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.9) inset;
+}
