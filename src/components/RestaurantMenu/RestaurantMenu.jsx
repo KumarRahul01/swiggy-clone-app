@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { act, useEffect, useState } from "react";
 import { MdStars } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 import { IMG_SLUG_URL } from "../../utils/Constants";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import Discounts from "../Discount/Discounts";
 import Menu from "../Menu/Menu";
+import { IoIosSearch } from "react-icons/io";
+import Navbar from "../Navbar/Navbar";
 
 const RestaurantMenu = () => {
   const obj = useParams();
@@ -13,29 +15,50 @@ const RestaurantMenu = () => {
   const resId = strId.match(/\d+/)[0];
 
   const [resInfo, setResInfo] = useState([]);
-  const [menuData, setMenuData] = useState([]);
+  const [topMenuData, setTopMenuData] = useState([]);
   const [discountData, setDiscountData] = useState([]);
   const [translateValue, setTranslateValue] = useState(0);
+  const [topPicks, setTopPicks] = useState([]);
 
   let dataFetched = false;
 
   async function fetchData() {
     const res = await fetch(
-      `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=21.99740&lng=79.00110&restaurantId=${resId}&submitAction=ENTER`
+      `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.5355161&lng=77.3910265&restaurantId=${resId}&submitAction=ENTER`
     );
     const data = await res.json();
-    dataFetched = true;
+    // console.log("Actual Real Data", data);
+
     // Filter out the actual menu cards
     const actualMenuData =
       (data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards).filter(
-        (data) => data?.card?.card?.itemCards || data?.card?.card?.categories
+        (data) => data?.card?.card?.itemCards
       );
 
     setResInfo(data?.data?.cards[2].card?.card?.info);
     setDiscountData(
       data?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers
     );
-    setMenuData(actualMenuData);
+    setTopMenuData(
+      data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards
+    );
+    setTopPicks(
+      data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1]
+    );
+
+    // const { imageId } =
+    //   data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[17].card
+    //     .card;
+    // const licenseNumber =
+    //   data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[17].card
+    //     .card.text;
+
+    // console.log(imageId, licenseNumber);
+
+    // console.log(
+    //   "allData",
+    //   data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[18]
+    // );
   }
 
   useEffect(() => {
@@ -145,7 +168,21 @@ const RestaurantMenu = () => {
 
             {/* Menu */}
             <div className="py-5 ">
-              <Menu menuData={menuData} />
+              <div className="tracking-widest text-[16px] font-semibold text-center">
+                MENU
+              </div>
+
+              {/* Search Div */}
+              <div className="relative flex items-center justify-center bg-gray-100 border border-gray-100 py-3 rounded-xl my-5 cursor-pointer">
+                <h1 className="text-[16px] font-semibold text-gray-600">
+                  Search for dishes
+                </h1>
+                <span className="absolute right-4">
+                  <IoIosSearch size={"1.25rem"} />
+                </span>
+              </div>
+              {/* Menu */}
+              <Menu topMenuData={topMenuData} />
             </div>
           </div>
         </div>

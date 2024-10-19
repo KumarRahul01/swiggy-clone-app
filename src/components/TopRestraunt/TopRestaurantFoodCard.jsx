@@ -16,8 +16,8 @@ const TopRestaurantFoodCard = ({ resdata, reslink }) => {
 
         {/* Discount Offers */}
         <div className="absolute bottom-0 w-full">
-          <h3 className="text-2xl rounded-b-xl font-extrabold tracking-tight text-white px-4 bg-gradient-to-t from-gray-900 from-20% to-transparent to-100%">
-            {resdata.name === "Nandhana Palace" ? (
+          <h3 className="text-2xl rounded-b-xl font-extrabold tracking-tight text-white px-4 bg-gradient-to-t from-gray-900 from-20% to-transparent to-100% line-clamp-1">
+            {/* {resdata.name === "Nandhana Palace" ? (
               <div></div>
             ) : (
               resdata.aggregatedDiscountInfoV3 &&
@@ -26,7 +26,15 @@ const TopRestaurantFoodCard = ({ resdata, reslink }) => {
                 (resdata.aggregatedDiscountInfoV3?.subHeader
                   ? resdata.aggregatedDiscountInfoV3?.subHeader
                   : resdata.aggregatedDiscountInfoV3?.discountTag)
-            )}
+            )} */}
+
+            {resdata.aggregatedDiscountInfoV3
+              ? resdata.aggregatedDiscountInfoV3?.header +
+                " " +
+                (resdata.aggregatedDiscountInfoV3?.subHeader
+                  ? resdata.aggregatedDiscountInfoV3?.subHeader
+                  : resdata.aggregatedDiscountInfoV3?.discountTag)
+              : "TRYNEW"}
           </h3>
         </div>
       </div>

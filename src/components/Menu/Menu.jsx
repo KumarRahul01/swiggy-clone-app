@@ -1,33 +1,83 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { IoChevronUp } from "react-icons/io5";
-import { IoStar } from "react-icons/io5";
+
 import { IoChevronDown } from "react-icons/io5";
 import { CLOUDINARY_IMG_URL, IMG_SLUG_URL } from "../../utils/Constants";
-import FoodMenuCard from "./FoodMenuCard";
+import ItemCardMenu from "./ItemCardMenu";
 
-const Menu = ({ menuData }) => {
+const Menu = ({ topMenuData }) => {
+  // const [showItemMenu, setShowItemMenu] = useState(0);
+
+  // const handleToogle = (i) => {
+  //   console.log(i);
+  //   setShowItemMenu(showItemMenu === i ? null : i);
+  // };
+
+  // const [showCatMenu, setShowCatMenu] = useState(null);
+
+  // const handleCatToogle = (i) => {
+  //   console.log(i);
+  //   setShowCatMenu(showCatMenu === i ? null : i);
+  // };
+
+  const [menuData, setMenuData] = useState([]);
+
+  useEffect(() => {
+    if (topMenuData.length > 0) {
+      setMenuData(
+        topMenuData.filter(
+          (data) => data.card.card.itemCards || data.card.card.categories
+        )
+      );
+    }
+  }, [topMenuData]);
+  // console.log(menuData);
+
   return (
     <>
-      <div className="tracking-widest text-[16px] font-semibold text-center">
-        MENU
-      </div>
+      {menuData.map((data, index) => {
+        const { title, itemCards, categories } = data.card.card;
 
-      {/* Search Div */}
-      <div className="relative flex items-center justify-center bg-gray-100 border border-gray-100 py-3 rounded-xl my-5 cursor-pointer">
-        <h1 className="text-[16px] font-semibold text-gray-600">
-          Search for dishes
-        </h1>
-        <span className="absolute right-4">
-          <IoIosSearch size={"1.25rem"} />
-        </span>
-      </div>
-
-      {/* Restaurant Menu */}
-      {menuData.map((menuItem, index) => {
         return (
           <div key={index}>
-            <FoodMenuCard menuItem={menuItem} index={index} />
+            <div className="flex items-center justify-between my-6">
+              <h1 className="text-xl font-extrabold">
+                {title} ({itemCards ? itemCards.length : categories.length})
+              </h1>
+            </div>
+            {itemCards
+              ? itemCards.map((data, itemIndex) => {
+                  // return <div key={itemIndex}>{data.card.info.name}</div>;
+                  return (
+                    <div
+                      key={itemIndex}
+                      className=" relative flex gap-10 mt-10 pb-5"
+                    >
+                      <ItemCardMenu data={data} />
+                      <div className="absolute bottom-0 h-[2px] w-full bg-slate-200"></div>
+                    </div>
+                  );
+                })
+              : categories.map((data, categoryIndex) => {
+                  const catItemCardsData = data.itemCards;
+
+                  return (
+                    <div key={categoryIndex}>
+                      {catItemCardsData.map((data, catItemIndex) => {
+                        return (
+                          <div
+                            key={catItemIndex}
+                            className=" relative flex gap-10 mt-10 pb-5"
+                          >
+                            <ItemCardMenu data={data} />
+                            <div className="absolute bottom-0 h-[2px] w-full bg-slate-200"></div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
           </div>
         );
       })}

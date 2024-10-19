@@ -1,17 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const getAllData = createAsyncThunk("getAllData", async () => {
-  const res = await fetch(
-    // "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.9690247&lng=72.8205292&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    // "https://instafood.onrender.com/api/restaurants?lat=12.9715987&lng=77.5945627"
-    "https://cors-by-codethread-for-swiggy.vercel.app/cors/dapi/restaurants/list/v5?lat=28.5355161&lng=77.3910265&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING" ||
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.9690247&lng=72.8205292&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-  );
+//? VARIOUS APIs:
 
-  const data = await res.json();
-  // console.log("fetch Data", data);
-  return data;
-});
+// ? Swiggy API: https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.9690247&lng=72.8205292&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING
+
+// ? https://cors-by-codethread-for-swiggy.vercel.app/cors/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING
+
+// ? Swiggy API: https://instafood.onrender.com/api/restaurants?lat=12.9715987&lng=77.5945627
+
+export const getAllData = createAsyncThunk(
+  "getAllData",
+  async ({ lat, lng }) => {
+    const res = await fetch(
+      `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+    );
+
+    const data = await res.json();
+    if (data.data.cards[0].card.card.title === "Location Unserviceable") {
+      return "Location Unserviceable";
+    } else {
+      return data;
+    }
+  }
+);
 
 export const dataSlice = createSlice({
   name: "data",

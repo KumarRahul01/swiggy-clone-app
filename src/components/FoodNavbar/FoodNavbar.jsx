@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllData } from "../Store/dataSlice";
 import { IMG_SLUG_URL } from "../../utils/Constants";
+import { LocationContext } from "../context/LocationContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const FoodNavbar = () => {
+  const navigate = useNavigate();
+  const { lat, lng } = useContext(LocationContext);
+
   const [foodItemNav, setfoodItemNav] = useState([]);
   const [title, setTitle] = useState("");
   const [translateValue, setTranslateValue] = useState(0);
@@ -13,20 +18,22 @@ const FoodNavbar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    try {
-      dispatch(getAllData());
-    } catch (error) {
-      console.log(error.message);
-    }
+    dispatch(
+      getAllData({ lat: lat || "28.5355161", lng: lng || "77.3910265" })
+    );
+  }, [lat, lng, dispatch]);
+
+  useEffect(() => {
+    setTitle(data?.data?.cards?.[0]?.card?.card?.header?.title || ""); // Default to empty string if undefined
   }, [data]);
 
   useEffect(() => {
-    // console.log(data);
-
-    setTitle(data?.data?.cards[0].card?.card?.header?.title);
-    if (data != "") {
-      setfoodItemNav(data?.data?.cards[0].card?.card?.imageGridCards?.info);
+    if (data === "Location Unserviceable") {
+      navigate("/404");
     }
+    setfoodItemNav(
+      data?.data?.cards?.[0]?.card?.card?.imageGridCards?.info || []
+    );
   }, [data]);
 
   const handlePrev = () => {
@@ -38,15 +45,12 @@ const FoodNavbar = () => {
   };
 
   const handleNext = () => {
-    // if (translateValue >= 120) {
-    //   setTranslateValue(156);
-    // } else {
-    //   setTranslateValue((prev) => prev + 60);
-    // }
-    setTranslateValue((prev) => prev + 60);
+    if (translateValue >= 150) {
+      setTranslateValue(150); // Adjust based on item width and gap
+    } else {
+      setTranslateValue((prev) => prev + 60);
+    }
   };
-
-  // console.log(translateValue);
 
   return (
     <>
@@ -57,9 +61,7 @@ const FoodNavbar = () => {
           <FaArrowLeft
             size={"1.65rem"}
             className={`${
-              translateValue === 0
-                ? "bg-gray-200 text-gray-400"
-                : "bg-gray-200 "
+              translateValue === 0 ? "bg-gray-200 text-gray-400" : "bg-gray-200"
             } rounded-full p-1 cursor-pointer`}
             onClick={handlePrev}
           />
@@ -74,17 +76,23 @@ const FoodNavbar = () => {
           />
         </div>
       </div>
-      <div className={`flex gap-6 overflow-x-scroll px-10 scrolling`}>
-        {foodItemNav.length > 0 &&
+
+      <div
+        className={`flex gap-6 overflow-x-scroll px-10 scrolling transition-all duration-700`}
+      >
+        {foodItemNav.length > 0 ? (
           foodItemNav.map((item) => (
             <img
               key={item.id}
               src={`${IMG_SLUG_URL}${item.imageId}`}
-              alt={item.restaurantName}
+              alt="food-img"
               className={`w-[9rem] cursor-pointer transition-all duration-700`}
-              style={{ translate: `-${translateValue}rem` }}
+              style={{ transform: `translateX(-${translateValue}rem)` }}
             />
-          ))}
+          ))
+        ) : (
+          <p className="text-center w-full">Loading...</p> // Display this if foodItemNav is empty
+        )}
       </div>
       <hr className="border-[1px] m-10" />
     </>
