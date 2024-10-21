@@ -1,12 +1,13 @@
 import React, { act, useEffect, useState } from "react";
-import { MdStars } from "react-icons/md";
-import { Link, useParams } from "react-router-dom";
+import { MdOutlineShoppingCart, MdStars } from "react-icons/md";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IMG_SLUG_URL } from "../../utils/Constants";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import Discounts from "../Discount/Discounts";
 import Menu from "../Menu/Menu";
 import { IoIosSearch } from "react-icons/io";
 import Navbar from "../Navbar/Navbar";
+import { useSelector } from "react-redux";
 
 const RestaurantMenu = () => {
   const obj = useParams();
@@ -45,20 +46,7 @@ const RestaurantMenu = () => {
     setTopPicks(
       data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1]
     );
-
-    // const { imageId } =
-    //   data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[17].card
-    //     .card;
-    // const licenseNumber =
-    //   data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[17].card
-    //     .card.text;
-
-    // console.log(imageId, licenseNumber);
-
-    // console.log(
-    //   "allData",
-    //   data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[18]
-    // );
+    // console.log(data?.data?.cards[2].card?.card?.info);
   }
 
   useEffect(() => {
@@ -77,9 +65,15 @@ const RestaurantMenu = () => {
     setTranslateValue((prev) => prev + 20);
   };
 
+  const cartItems = useSelector((store) => store.cart.cartData);
+  const navigate = useNavigate();
+  const cartHandler = () => {
+    navigate("/cart");
+  };
+
   return (
     <>
-      <div className="w-full">
+      <div className="w-full relative">
         <div className="w-[800px] mx-auto my-5">
           <p className="text-xs font-light">
             <Link to={"/"} className="text-gray-500 hover:text-gray-950">
@@ -184,6 +178,25 @@ const RestaurantMenu = () => {
               {/* Menu */}
               <Menu topMenuData={topMenuData} />
             </div>
+          </div>
+        </div>
+
+        {/* Cart Logo on right side */}
+        <div
+          className={`${
+            cartItems.length > 0 ? "fixed animate-bounce" : "hidden"
+          } bottom-20 right-20 cursor-pointer hover:bg-gray-200 p-2 rounded-full transition-all duration-300`}
+          onClick={cartHandler}
+        >
+          <div className="relative">
+            <MdOutlineShoppingCart size={"2.5rem"} />
+          </div>
+          <div
+            className={`top-0 right-3 text-sm font-bold rounded-full text-gray-100 bg-[#fe5200] px-2 ${
+              cartItems.length === 0 ? "hidden" : "absolute"
+            }`}
+          >
+            {cartItems.length}
           </div>
         </div>
       </div>

@@ -5,9 +5,10 @@ import { RiDiscountPercentLine } from "react-icons/ri";
 import { IoHelpBuoyOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { FaRegUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { LocationContext } from "../context/LocationContext";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { getLatAndLng } = useContext(LocationContext);
@@ -16,33 +17,36 @@ const Navbar = () => {
   const [searchLocation, setSearchLocation] = useState("Noida");
   const [clearText, setClearText] = useState(false);
 
-  //* Function to Ask Users Geo Location
-  // useEffect(() => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         console.log(position);
-  //       },
-  //       (err) => {
-  //         console.log(err.message);
-  //       }
-  //     );
-  //   }
-  // }, []);
+  //* Navbar Data
+  const navData = [
+    {
+      name: "Swiggy Corporate",
+      to: "#",
+      icon: "PiBagSimpleBold",
+    },
+    {
+      name: "Search",
+      to: "#",
+      icon: "CgSearch",
+    },
+    {
+      name: "Offers",
+      to: "#",
+      icon: "RiDiscountPercentLine",
+    },
+    {
+      name: "Help",
+      to: "#",
+      icon: "IoHelpBuoyOutline",
+    },
+    {
+      name: "Sign In",
+      to: "#",
+      icon: "FaRegUser",
+    },
+  ];
 
   //* Calling AutoComple Search API
-
-  // const handleChange = async (e) => {
-  //   const val = e.target.value;
-  //   if (val == "") return;
-  //   setClearText(true);
-  //   setSearchLocation(val);
-  //   const res = await fetch(
-  //     `https://www.swiggy.com/dapi/misc/place-autocomplete?input=${val}`
-  //   );
-  //   const data = await res.json();
-  //   setSearchResult(data.data);
-  // };
 
   const handleChange = async (e) => {
     const val = e.target.value;
@@ -100,6 +104,9 @@ const Navbar = () => {
     setClearText(false);
   };
 
+  //* Fetching Cart Length
+  const cartItems = useSelector((store) => store.cart.cartData);
+
   return (
     <>
       <div className="w-full shadow-md relative">
@@ -133,30 +140,32 @@ const Navbar = () => {
           <div className="w-full flex justify-end items-center">
             <ul className="flex gap-14 bg-re-200 font-semibold text-gray-600">
               {/* List Items */}
-              <li className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer">
-                <PiBagSimpleBold size={"1.35rem"} />
-                Swiggy Corporate
-              </li>
-              <li className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer">
-                <CgSearch size={"1.35rem"} />
-                Search
-              </li>
-              <li className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer">
-                <RiDiscountPercentLine size={"1.35rem"} />
-                Offers
-              </li>
-              <li className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer">
-                <IoHelpBuoyOutline size={"1.35rem"} />
-                Help
-              </li>
-              <li className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer">
-                <FaRegUser size={"1.25rem"} />
-                Sign In
-              </li>
-              <li className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer">
+              {navData.map((data, index) => {
+                return (
+                  <Link
+                    to={navData.to}
+                    key={index}
+                    className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer"
+                  >
+                    {/* <data.icon size={"1.35rem"} /> */}
+                    {data.name}
+                  </Link>
+                );
+              })}
+              <Link
+                to={"/cart"}
+                className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer relative"
+              >
                 <MdOutlineShoppingCart size={"1.35rem"} />
                 Cart
-              </li>
+                <div
+                  className={`bottom-4 right-8 font-bold px-[6px] py-[2px] bg-[#fe5200] text-[12px] text-gray-100 rounded-full tracking-wide ${
+                    cartItems.length === 0 ? "hidden" : "absolute"
+                  }`}
+                >
+                  {cartItems.length}
+                </div>
+              </Link>
             </ul>
           </div>
         </div>

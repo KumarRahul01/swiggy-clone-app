@@ -7,6 +7,8 @@ import { CLOUDINARY_IMG_URL, IMG_SLUG_URL } from "../../utils/Constants";
 import ItemCardMenu from "./ItemCardMenu";
 
 const Menu = ({ topMenuData }) => {
+  // console.log(topMenuData);
+
   // const [showItemMenu, setShowItemMenu] = useState(0);
 
   // const handleToogle = (i) => {
@@ -60,11 +62,11 @@ const Menu = ({ topMenuData }) => {
                   );
                 })
               : categories.map((data, categoryIndex) => {
-                  const catItemCardsData = data.itemCards;
+                  const cartItemCardsData = data.itemCards;
 
                   return (
                     <div key={categoryIndex}>
-                      {catItemCardsData.map((data, catItemIndex) => {
+                      {cartItemCardsData.map((data, catItemIndex) => {
                         return (
                           <div
                             key={catItemIndex}

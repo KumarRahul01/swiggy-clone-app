@@ -17,7 +17,9 @@ export const getAllData = createAsyncThunk(
 
     const data = await res.json();
     if (data.data.cards[0].card.card.title === "Location Unserviceable") {
-      return "Location Unserviceable";
+      console.log("Location Unserviceable");
+      window.location.href = "/location-unservicable";
+      return data;
     } else {
       return data;
     }
@@ -28,6 +30,7 @@ export const dataSlice = createSlice({
   name: "data",
   initialState: {
     data: [],
+    cartData: [],
     loading: false,
     error: null,
   },

@@ -4,6 +4,7 @@
 
 body {
   font-family: "Gilroy", sans-serif;
+  scroll-behavior: smooth;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

@@ -10,10 +10,18 @@ const RestaurantOnline = () => {
   const [restaurant, setRestaurant] = useState([]);
 
   useEffect(() => {
+    // if (data) {
+    //   setTitle(data?.data?.cards[2]?.card?.card?.title);
+    //   setRestaurant(
+    //     data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+    //       ?.restaurants
+    //   );
+    // }
     if (data) {
+      // setTitle(data?.data?.cards[1]?.card?.card?.header?.title);
       setTitle(data?.data?.cards[2]?.card?.card?.title);
       setRestaurant(
-        data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants
       );
     }

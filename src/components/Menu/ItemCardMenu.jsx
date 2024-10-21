@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { IMG_SLUG_URL } from "../../utils/Constants";
 import { IoStar } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { addItem } from "../Store/CartSlice.jsx";
 
 const ItemCardMenu = ({ data }) => {
   // console.log(data);
 
-  const { name, imageId, finalPrice, defaultPrice, price, description } =
+  const { name, imageId, finalPrice, defaultPrice, price, description, id } =
     data.card.info;
 
   const { rating, ratingCountV2 } = data.card.info.ratings.aggregatedRating;
@@ -24,15 +26,35 @@ const ItemCardMenu = ({ data }) => {
   }, []);
 
   const showDesc = () => {
-    console.log("clicked" + description);
     setDesc(description);
+  };
+
+  const dispatch = useDispatch();
+
+  const addItemToCart = (
+    id,
+    name,
+    imageId,
+    finalPrice,
+    defaultPrice,
+    price
+  ) => {
+    dispatch(
+      addItem({
+        id,
+        name,
+        imageId,
+        price: finalPrice || defaultPrice || price,
+        quantity: 1,
+      })
+    );
   };
 
   return (
     <>
       <div className="w-9/12 text-gray-700">
         <p>
-          {vegClassifier === "VEG" ? (
+          {vegClassifier === "VEG" || vegClassifier === "" ? (
             <img className="w-4" src="/veg.jpg" />
           ) : (
             <img className="w-4" src="/non-veg.jpg" />
@@ -75,7 +97,7 @@ const ItemCardMenu = ({ data }) => {
           <p className="font-medium">
             {desc || "No description is required for this tasty meal! "}
             <button onClick={showDesc} className=" font-bold">
-              {desc === description ? "" : "more "}
+              {desc === description || desc == "" ? "" : "more "}
             </button>
           </p>
         </div>
@@ -84,10 +106,15 @@ const ItemCardMenu = ({ data }) => {
         <div className="w-full p-3 relative">
           <img
             className="h-40 aspect-[3/2] object-cover rounded-xl"
-            src={IMG_SLUG_URL + imageId}
-            alt={name + "img"}
+            src={imageId ? IMG_SLUG_URL + imageId : "/tempImg.webp"}
+            alt={name}
           />
-          <button className="absolute bottom-1 left-[15%] bg-white hover:bg-gray-200 transition-all duration-300 px-12 py-1 text-green-600 font-extrabold text-lg rounded-lg border">
+          <button
+            className="absolute bottom-1 left-[15%] bg-gray-50 hover:bg-gray-200 transition-all duration-300 px-12 py-1 text-green-600 font-extrabold text-lg rounded-lg border"
+            onClick={() =>
+              addItemToCart(id, name, imageId, finalPrice, defaultPrice, price)
+            }
+          >
             ADD
           </button>
         </div>

@@ -3,7 +3,10 @@ import { UNSERVICABLE_IMG_URL } from "../../utils/Constants";
 
 const NotFound = () => {
   const navigate = useNavigate();
+
   const clickHandler = () => {
+    console.log("Hello world");
+
     navigate("/");
   };
   return (
@@ -15,15 +18,15 @@ const NotFound = () => {
           alt="Location Unavailable"
         />
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-3xl text-center font-bold text-gray-700">
+          <h1 className="text-3xl text-center font-bold text-gray-800">
             Location Unserviceable
           </h1>
+          {/* <h3 className="text-lg text-center font-bold text-gray-700 mt-5">
+            Please Search Another Location ...
+          </h3> */}
           <button
-            className="mt-5 text-sm font-bold text-white bg-[#fe5200] hover:bg-[#fe5000d1] transition-all duration-300 px-8 py-2 rounded-md"
-            type="button"
-            onClick={() => {
-              clickHandler();
-            }}
+            className="px-6 py-1 bg-[#fe5200] rounded-lg text-white text-lg font-bold cursor-pointer my-6"
+            onClick={clickHandler}
           >
             Go Back
           </button>

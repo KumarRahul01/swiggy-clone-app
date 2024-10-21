@@ -14,7 +14,7 @@ const FoodNavbar = () => {
   const [title, setTitle] = useState("");
   const [translateValue, setTranslateValue] = useState(0);
 
-  const data = useSelector((state) => state.app.data);
+  const data = useSelector((store) => store.app.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
