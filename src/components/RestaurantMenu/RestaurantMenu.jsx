@@ -1,4 +1,4 @@
-import React, { act, useEffect, useState } from "react";
+import React, { act, useContext, useEffect, useState } from "react";
 import { MdOutlineShoppingCart, MdStars } from "react-icons/md";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IMG_SLUG_URL } from "../../utils/Constants";
@@ -8,6 +8,7 @@ import Menu from "../Menu/Menu";
 import { IoIosSearch } from "react-icons/io";
 import Navbar from "../Navbar/Navbar";
 import { useSelector } from "react-redux";
+import { LocationContext } from "../context/LocationContext";
 
 const RestaurantMenu = () => {
   const obj = useParams();
@@ -22,19 +23,24 @@ const RestaurantMenu = () => {
   const [topPicks, setTopPicks] = useState([]);
 
   let dataFetched = false;
+  const { lat, lng } = useContext(LocationContext);
 
   async function fetchData() {
     const res = await fetch(
-      `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.5355161&lng=77.3910265&restaurantId=${resId}&submitAction=ENTER`
+      `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${
+        lat || "28.7040592"
+      }&lng=${
+        lng || "77.10249019999999"
+      }&restaurantId=${resId}&submitAction=ENTER`
     );
     const data = await res.json();
-    // console.log("Actual Real Data", data);
+    console.log("Actual Real Data", data);
 
     // Filter out the actual menu cards
-    const actualMenuData =
-      (data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards).filter(
-        (data) => data?.card?.card?.itemCards
-      );
+    // const actualMenuData =
+    //   (data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards).filter(
+    //     (data) => data?.card?.card?.itemCards
+    //   );
 
     setResInfo(data?.data?.cards[2].card?.card?.info);
     setDiscountData(
