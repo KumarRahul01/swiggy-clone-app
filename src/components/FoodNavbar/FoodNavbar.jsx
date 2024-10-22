@@ -24,13 +24,10 @@ const FoodNavbar = () => {
   }, [lat, lng]);
 
   useEffect(() => {
-    setTitle(data?.data?.cards?.[0]?.card?.card?.header?.title || ""); // Default to empty string if undefined
-  }, [data]);
-
-  useEffect(() => {
     if (data === "Location Unserviceable") {
       navigate("/404");
     }
+    setTitle(data?.data?.cards?.[0]?.card?.card?.header?.title || ""); // Default to empty string if undefined
     setfoodItemNav(
       data?.data?.cards?.[0]?.card?.card?.imageGridCards?.info || []
     );

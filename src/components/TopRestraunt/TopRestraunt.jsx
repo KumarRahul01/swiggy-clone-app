@@ -13,13 +13,11 @@ const TopRestraunt = () => {
   const [translateValue, setTranslateValue] = useState(0);
 
   useEffect(() => {
-    // console.log(data);
-
     if (data) {
-      setTitle(data?.data?.cards[1]?.card?.card?.header?.title);
+      setTitle(data?.data?.cards[1]?.card?.card?.header?.title || "");
       setRestaurant(
         data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
+          ?.restaurants || []
       );
     }
   }, [data]);

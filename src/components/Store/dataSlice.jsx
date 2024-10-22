@@ -21,7 +21,7 @@ export const getAllData = createAsyncThunk(
       window.location.href = "/location-unservicable";
       return data;
     } else {
-      console.log(data);
+      // console.log(data);
       return data;
     }
   }

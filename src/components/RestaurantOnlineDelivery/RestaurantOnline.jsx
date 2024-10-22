@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TopRestaurantFoodCard from "../TopRestraunt/TopRestaurantFoodCard";
-import { redirect } from "react-router-dom";
 
 const RestaurantOnline = () => {
   const data = useSelector((store) => store.app.data);

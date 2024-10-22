@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IMG_SLUG_URL } from "../utils/Constants";
-import { MdDelete } from "react-icons/md";
 import { removeItem } from "../components/Store/CartSlice";
 
 const Cart = () => {

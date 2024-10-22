@@ -1,14 +1,13 @@
 import React, { act, useContext, useEffect, useState } from "react";
 import { MdOutlineShoppingCart, MdStars } from "react-icons/md";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { IMG_SLUG_URL } from "../../utils/Constants";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import Discounts from "../Discount/Discounts";
 import Menu from "../Menu/Menu";
 import { IoIosSearch } from "react-icons/io";
-import Navbar from "../Navbar/Navbar";
 import { useSelector } from "react-redux";
 import { LocationContext } from "../context/LocationContext";
+import TopPicks from "../TopPicks/TopPicks";
 
 const RestaurantMenu = () => {
   const obj = useParams();
@@ -22,7 +21,6 @@ const RestaurantMenu = () => {
   const [translateValue, setTranslateValue] = useState(0);
   const [topPicks, setTopPicks] = useState([]);
 
-  let dataFetched = false;
   const { lat, lng } = useContext(LocationContext);
 
   async function fetchData() {
@@ -36,12 +34,6 @@ const RestaurantMenu = () => {
     const data = await res.json();
     console.log("Actual Real Data", data);
 
-    // Filter out the actual menu cards
-    // const actualMenuData =
-    //   (data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards).filter(
-    //     (data) => data?.card?.card?.itemCards
-    //   );
-
     setResInfo(data?.data?.cards[2].card?.card?.info);
     setDiscountData(
       data?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers
@@ -49,15 +41,25 @@ const RestaurantMenu = () => {
     setTopMenuData(
       data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards
     );
-    setTopPicks(
-      data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1]
-    );
-    // console.log(data?.data?.cards[2].card?.card?.info);
+
+    // const topPicks = data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1].card.card.title === "Top Picks";
+    if (
+      data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1].card
+        .card.title === "Top Picks"
+    ) {
+      setTopPicks(
+        data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1].card
+          .card.carousel
+      );
+    }
+    // setTopPicks(
+    //   data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1].card.card.title
+    // );
   }
 
   useEffect(() => {
     fetchData();
-  }, [dataFetched]);
+  }, []);
 
   const handlePrev = () => {
     if (translateValue <= 0) {
@@ -128,7 +130,7 @@ const RestaurantMenu = () => {
               </div>
             </div>
           </div>
-          {/* Deals */}
+          {/* Deals For You */}
           <div>
             <div className="flex items-center justify-between">
               <h1 className=" font-extrabold text-2xl py-4">Deals for you</h1>
@@ -181,6 +183,10 @@ const RestaurantMenu = () => {
                   <IoIosSearch size={"1.25rem"} />
                 </span>
               </div>
+
+              {/* Top-Picks */}
+              {topPicks.length > 0 && <TopPicks data={topPicks} />}
+
               {/* Menu */}
               <Menu topMenuData={topMenuData} />
             </div>

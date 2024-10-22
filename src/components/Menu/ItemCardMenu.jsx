@@ -12,7 +12,7 @@ const ItemCardMenu = ({ data }) => {
 
   const { rating, ratingCountV2 } = data.card.info.ratings.aggregatedRating;
 
-  const { vegClassifier } = data?.card?.info?.itemAttribute;
+  const { vegClassifier } = data?.card?.info?.itemAttribute || "VEG";
 
   const [desc, setDesc] = useState("");
 

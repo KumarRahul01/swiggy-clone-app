@@ -10,31 +10,20 @@ const TopRestaurantFoodCard = ({ resdata, reslink }) => {
         <img
           className={`rounded-xl aspect-[3/2] h-[182px] object-cover shadow-md`}
           src={`${CLOUDINARY_IMG_URL}${resdata.cloudinaryImageId}`}
-          alt=""
+          alt={resdata.name}
           title={resdata.name}
         />
 
         {/* Discount Offers */}
         <div className="absolute bottom-0 w-full">
           <h3 className="text-2xl rounded-b-xl font-extrabold tracking-tight text-white px-4 bg-gradient-to-t from-gray-900 from-20% to-transparent to-100% line-clamp-1">
-            {/* {resdata.name === "Nandhana Palace" ? (
-              <div></div>
-            ) : (
-              resdata.aggregatedDiscountInfoV3 &&
-              resdata.aggregatedDiscountInfoV3?.header +
-                " " +
-                (resdata.aggregatedDiscountInfoV3?.subHeader
-                  ? resdata.aggregatedDiscountInfoV3?.subHeader
-                  : resdata.aggregatedDiscountInfoV3?.discountTag)
-            )} */}
-
             {resdata.aggregatedDiscountInfoV3
               ? resdata.aggregatedDiscountInfoV3?.header +
                 " " +
                 (resdata.aggregatedDiscountInfoV3?.subHeader
                   ? resdata.aggregatedDiscountInfoV3?.subHeader
                   : resdata.aggregatedDiscountInfoV3?.discountTag)
-              : "TRYNEW"}
+              : "20% OFF UPTO ₹ 200"}
           </h3>
         </div>
       </div>
@@ -63,7 +52,9 @@ const TopRestaurantFoodCard = ({ resdata, reslink }) => {
         </div>
 
         {/* Area Name */}
-        <h3 className="font-medium text-gray-600">{resdata.areaName}</h3>
+        <h3 className="font-medium text-gray-600 capitalize">
+          {resdata.areaName}
+        </h3>
       </div>
     </Link>
   );
