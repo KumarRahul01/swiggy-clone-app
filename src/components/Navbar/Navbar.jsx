@@ -14,7 +14,7 @@ const Navbar = () => {
   const { getLatAndLng } = useContext(LocationContext);
 
   const [searchResult, setSearchResult] = useState([]);
-  const [searchLocation, setSearchLocation] = useState("Noida");
+  const [searchLocation, setSearchLocation] = useState("Delhi India");
   const [clearText, setClearText] = useState(false);
 
   //* Navbar Data

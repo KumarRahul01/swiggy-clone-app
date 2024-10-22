@@ -8,6 +8,7 @@ const LocationProvider = ({ children }) => {
 
   const getLatAndLng = (lat, lng) => {
     console.log(lat, lng);
+
     setLat(lat);
     setLng(lng);
   };

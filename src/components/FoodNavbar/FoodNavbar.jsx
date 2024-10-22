@@ -19,9 +19,9 @@ const FoodNavbar = () => {
 
   useEffect(() => {
     dispatch(
-      getAllData({ lat: lat || "28.5355161", lng: lng || "77.3910265" })
+      getAllData({ lat: lat || "28.7040592", lng: lng || "77.10249019999999" })
     );
-  }, [lat, lng, dispatch]);
+  }, [lat, lng]);
 
   useEffect(() => {
     setTitle(data?.data?.cards?.[0]?.card?.card?.header?.title || ""); // Default to empty string if undefined

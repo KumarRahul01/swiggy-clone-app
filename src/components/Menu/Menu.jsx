@@ -7,22 +7,6 @@ import { CLOUDINARY_IMG_URL, IMG_SLUG_URL } from "../../utils/Constants";
 import ItemCardMenu from "./ItemCardMenu";
 
 const Menu = ({ topMenuData }) => {
-  // console.log(topMenuData);
-
-  // const [showItemMenu, setShowItemMenu] = useState(0);
-
-  // const handleToogle = (i) => {
-  //   console.log(i);
-  //   setShowItemMenu(showItemMenu === i ? null : i);
-  // };
-
-  // const [showCatMenu, setShowCatMenu] = useState(null);
-
-  // const handleCatToogle = (i) => {
-  //   console.log(i);
-  //   setShowCatMenu(showCatMenu === i ? null : i);
-  // };
-
   const [menuData, setMenuData] = useState([]);
 
   useEffect(() => {
