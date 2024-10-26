@@ -30,7 +30,6 @@ const ItemCardMenu = ({ data }) => {
   };
 
   const dispatch = useDispatch();
-  const cartItems = useSelector((store) => store.cart.cartData);
 
   const addItemToCart = (
     id,
@@ -52,8 +51,8 @@ const ItemCardMenu = ({ data }) => {
   };
 
   return (
-    <>
-      <div className="w-9/12 text-gray-700">
+    <div className="flex flex-col-reverse md:flex-row gap-10 w-[400px] md:w-full mx-auto">
+      <div className="md:w-9/12 w-full text-gray-700">
         <p>
           {vegClassifier === "VEG" || vegClassifier === "" ? (
             <img className="w-4" src="/veg.jpg" />
@@ -103,15 +102,15 @@ const ItemCardMenu = ({ data }) => {
           </p>
         </div>
       </div>
-      <div className="w-3/12">
-        <div className="w-full p-3 relative">
+      <div className="md:w-3/12 w-full">
+        <div className="w-full p-3 relative flex flex-col items-center justify-center">
           <img
-            className="h-40 aspect-[3/2] object-cover rounded-xl"
+            className="h-40 aspect-[3/2] object-cover rounded-xl shadow-md md:shadow-none"
             src={imageId ? IMG_SLUG_URL + imageId : "/tempImg.webp"}
             alt={name}
           />
           <button
-            className="absolute bottom-1 left-[15%] bg-gray-50 hover:bg-gray-200 transition-all duration-300 px-12 py-1 text-green-600 font-extrabold text-lg rounded-lg border"
+            className="absolute bottom-0 md:bottom-1 md:left-[15%] sm:left-[7rem] bg-gray-50 hover:bg-gray-200 transition-all duration-300 px-12 py-1 text-green-600 font-extrabold text-lg rounded-lg border"
             onClick={() =>
               addItemToCart(id, name, imageId, finalPrice, defaultPrice, price)
             }
@@ -123,7 +122,7 @@ const ItemCardMenu = ({ data }) => {
           Customisable
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

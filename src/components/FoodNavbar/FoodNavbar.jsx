@@ -52,7 +52,7 @@ const FoodNavbar = () => {
   return (
     <>
       <div className="flex items-center justify-between mt-4">
-        <h1 className="ml-8 font-extrabold text-2xl py-4">{title}</h1>
+        <h1 className="md:ml-8 font-extrabold text-2xl py-4">{title}</h1>
 
         <div className="flex gap-4">
           <FaArrowLeft
@@ -75,7 +75,7 @@ const FoodNavbar = () => {
       </div>
 
       <div
-        className={`flex gap-6 overflow-x-scroll px-10 scrolling transition-all duration-700`}
+        className={`flex gap-6 overflow-x-scroll md:px-10 scrolling transition-all duration-700`}
       >
         {foodItemNav.length > 0 ? (
           foodItemNav.map((item) => (

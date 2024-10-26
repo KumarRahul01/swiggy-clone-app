@@ -36,7 +36,7 @@ const TopRestraunt = () => {
 
   return (
     <>
-      <div className="ml-8 mb-4">
+      <div className="md:ml-8 mb-4">
         <div className="flex items-center justify-between mt-12 mb-8">
           <h1 className="text-2xl font-extrabold">{title}</h1>
           <div className="flex gap-6">
@@ -60,7 +60,7 @@ const TopRestraunt = () => {
             />
           </div>
         </div>
-        <div className="flex gap-10 mt-10 overflow-x-scroll scrolling">
+        <div className="flex md:gap-10 gap-4 mt-10 overflow-x-scroll scrolling">
           {restaurant &&
             restaurant.map((restaurant) => {
               const resdata = restaurant.info;
@@ -69,7 +69,7 @@ const TopRestraunt = () => {
               return (
                 <div
                   key={resdata.id}
-                  className="min-w-[268px] h-fit rounded-lg text-gray-900 cursor-pointer hover:scale-90 transition-all duration-300"
+                  className="md:min-w-[268px] min-w-[240px] h-fit rounded-lg text-gray-900 cursor-pointer hover:scale-90 transition-all duration-300"
                   style={{ translate: `-${translateValue}rem` }}
                 >
                   <TopRestaurantFoodCard resdata={resdata} reslink={reslink} />

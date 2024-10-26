@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <>
       {/* Your App Components Go Here */}
-      <div className="w-10/12 mx-auto px-10 ">
+      <div className="md:w-10/12 w-full mx-auto md:px-10 px-5">
         <FoodNavbar />
         <TopRestraunt />
         <RestaurantOnline />

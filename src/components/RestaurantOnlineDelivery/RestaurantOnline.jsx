@@ -28,11 +28,11 @@ const RestaurantOnline = () => {
 
   return (
     <>
-      <div className="ml-8 mb-4">
+      <div className="md:ml-8 mb-4">
         <div className="my-8">
           <h1 className="text-2xl font-extrabold">{title}</h1>
         </div>
-        <div className="flex flex-wrap gap-4 mt-10 mb-16">
+        <div className="flex items-center justify-center flex-wrap gap-4 mt-10 mb-16 pb-20">
           {restaurant &&
             restaurant.map((restaurant) => {
               const resdata = restaurant.info;

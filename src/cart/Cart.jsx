@@ -75,16 +75,16 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div>
+        <div className="px-5">
           {cartItems.length > 0 ? (
-            <div>
+            <div className="md:w-[800px] mx-auto md:my-4">
               {cartItems.map((item) => {
                 return (
                   <div
                     key={item.id}
-                    className="flex gap-10 w-[800px] mx-auto mb-2 border-b-2 items-center my-4"
+                    className="overflow-hidden sm:flex items-center justify-between w-full md:gap-10 gap-6 mb-2 border-b-2"
                   >
-                    <div className="w-8/12 text-gray-700">
+                    <div className="w-full bg-red-400 text-gray-700">
                       <h1 className="text-lg font-bold text-gray-700">
                         {item.name}
                       </h1>
@@ -133,10 +133,10 @@ const Cart = () => {
                         </div>
                       </h3>
                     </div>
-                    <div className="w-4/12">
+                    <div className="w-full sm:w-1/2 flex flex-wrap justify-center items-center">
                       <div className="w-full p-3">
                         <img
-                          className="h-40 aspect-[3/2] object-cover rounded-xl"
+                          className="h-40 aspect-[3/2] w-full object-cover rounded-xl"
                           src={
                             item.imageId
                               ? IMG_SLUG_URL + item.imageId
@@ -149,8 +149,8 @@ const Cart = () => {
                   </div>
                 );
               })}
-              <div className="flex gap-10 w-[800px] mx-auto my-6">
-                <div className="flex justify-between items-center w-full">
+              <div className="flex gap-10 md:w-[800px] w-full mx-auto my-6">
+                <div className="flex flex-col gap-6 justify-between items-center w-full">
                   <h2 className="font-bold text-xl text-[#f35200]">
                     Total Price:{" "}
                     <span className="text-gray-900">₹ {totalPrice || 0}</span>

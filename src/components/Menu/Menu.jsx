@@ -34,11 +34,10 @@ const Menu = ({ topMenuData }) => {
             </div>
             {itemCards
               ? itemCards.map((data, itemIndex) => {
-                  // return <div key={itemIndex}>{data.card.info.name}</div>;
                   return (
                     <div
                       key={itemIndex}
-                      className=" relative flex gap-10 mt-10 pb-5"
+                      className="relative flex gap-10 mt-10 pb-5"
                     >
                       <ItemCardMenu data={data} />
                       <div className="absolute bottom-0 h-[2px] w-full bg-slate-200"></div>

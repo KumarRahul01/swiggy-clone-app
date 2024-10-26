@@ -1,4 +1,4 @@
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdMenu, MdOutlineShoppingCart } from "react-icons/md";
 import { PiBagSimpleBold } from "react-icons/pi";
 import { CgSearch } from "react-icons/cg";
 import { RiDiscountPercentLine } from "react-icons/ri";
@@ -20,24 +20,9 @@ const Navbar = () => {
   //* Navbar Data
   const navData = [
     {
-      name: "Swiggy Corporate",
-      to: "#",
-      icon: "PiBagSimpleBold",
-    },
-    {
       name: "Search",
       to: "#",
       icon: "CgSearch",
-    },
-    {
-      name: "Offers",
-      to: "#",
-      icon: "RiDiscountPercentLine",
-    },
-    {
-      name: "Help",
-      to: "#",
-      icon: "IoHelpBuoyOutline",
     },
     {
       name: "Sign In",
@@ -109,35 +94,38 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full shadow-md relative">
-        <div className="w-9/12 py-4 mx-auto flex h-fit">
+      <div className="w-full shadow-md md:relative px-5 md:px-0">
+        <div className="md:w-9/12 py-4 mx-auto flex h-fit ">
           {/* Logo & Other Div */}
-          <div className="w-3/12 flex gap-6 items-center">
-            <Link to={"/"} className="w-8">
-              <img src="/logo.svg" className="" alt="logo" />
+          <div className="w-[40px] md:w-20 overflow-hidden ">
+            <Link to={"/"} className="object-cover">
+              <img src="/logo.svg" className="w-full object-cover" alt="logo" />
             </Link>
-            <div className="flex items-center overflow-hidden ">
-              <input
-                className="font-bold text-sm border-b-2 border-gray-600 hover:border-[#fe5200] text-[#fe5200] focus:outline-none p-1  cursor-pointer w-56"
-                type="text"
-                placeholder="Delhi, India"
-                value={searchLocation}
-                onChange={(e) => handleChange(e)}
-              />
-              {clearText && (
-                <div className="text-gray-600 hover:text-[#fe5200]">
-                  <RxCross2
-                    className="cursor-pointer"
-                    size={"1.55rem"}
-                    onClick={() => clearData()}
-                  />
-                </div>
-              )}
+          </div>
+          <div className="w-full flex items-center justify-between md:justify-start overflow-hidden ml-2 md:ml-6">
+            <input
+              className="md:w-56 w-[70%] font-bold text-sm border-b-2 border-gray-600 hover:border-[#fe5200] text-[#fe5200] focus:outline-none p-1 cursor-pointer"
+              type="text"
+              placeholder="Delhi, India"
+              value={searchLocation}
+              onChange={(e) => handleChange(e)}
+            />
+            {clearText && (
+              <div className="text-gray-600 hover:text-[#fe5200] -ml-2 md:ml-0">
+                <RxCross2
+                  className="cursor-pointer"
+                  size={"1.55rem"}
+                  onClick={() => clearData()}
+                />
+              </div>
+            )}
+            <div className="md:hidden block">
+              <MdMenu size={"1.55rem"} />
             </div>
           </div>
 
           {/* Links Div */}
-          <div className="w-full flex justify-end items-center">
+          <div className="w-full hidden md:flex justify-end items-center">
             <ul className="flex gap-14 bg-re-200 font-semibold text-gray-600">
               {/* List Items */}
               {navData.map((data, index) => {
@@ -171,7 +159,7 @@ const Navbar = () => {
         </div>
 
         {/* SearchResult Box */}
-        <div className="absolute top-16 w-1/3 mx-20 h-fit z-20 bg-white">
+        <div className="absolute top-16 w-full md:w-1/3 md:mx-20 h-fit z-20 bg-white">
           <div>
             {searchResult.length > 0 &&
               searchResult.map((data, index) => (

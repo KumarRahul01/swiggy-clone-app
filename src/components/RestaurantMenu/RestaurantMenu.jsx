@@ -76,8 +76,8 @@ const RestaurantMenu = () => {
 
   return (
     <>
-      <div className="w-full relative">
-        <div className="w-[800px] mx-auto my-5">
+      <div className="w-full md:relative block px-5">
+        <div className="md:w-[800px] mx-auto my-5">
           <p className="text-xs font-light">
             <Link to={"/"} className="text-gray-500 hover:text-gray-950">
               Home
@@ -90,25 +90,29 @@ const RestaurantMenu = () => {
           </p>
 
           <h1 className="text-2xl font-extrabold mt-12 mb-4">{resInfo.name}</h1>
+
+          {/* Restaurant Card */}
           <div className="w-full rounded-3xl bg-gradient-to-t from-gray-300 p-5">
             <div className="w-full h-full border border-gray-300 bg-white rounded-2xl p-5">
-              <div className="flex items-center font-bold gap-1">
+              <div className="flex items-center font-bold gap-2">
                 <MdStars size="1.25rem" className="text-green-700" />
                 <span>{resInfo.avgRating}</span>
                 <span>({resInfo.totalRatingsString})</span>
-                <span className="h-1 w-1 rounded-full bg-gray-500"></span>
-                <span>{resInfo.costForTwoMessage}</span>
+                <span className="h-1 w-1 rounded-full hidden md:inline-block md:mb-0 bg-gray-500"></span>
+                <span className="hidden md:block">
+                  {resInfo.costForTwoMessage}
+                </span>
               </div>
 
               {/* cuisines */}
               <div>
-                <p className="font-bold underline text-[#fe5200] py-1 text-[15px] tracking-tight">
+                <p className="font-bold underline text-[#fe5200] py-1 text-[15px] tracking-tight mt-2 line-clamp-1">
                   {resInfo.cuisines?.join(", ")}
                 </p>
               </div>
 
               {/* Outlet & Timings */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 line-clamp-1">
                 <div className="flex flex-col justify-center items-center w-2 my-4">
                   <div className="w-[7px] h-[7px] bg-gray-300 rounded-full"></div>
                   <div className="w-[1.7px] h-7 bg-gray-300"></div>
@@ -128,7 +132,7 @@ const RestaurantMenu = () => {
           {/* Deals For You */}
           <div>
             <div className="flex items-center justify-between">
-              <h1 className=" font-extrabold text-2xl py-4">Deals for you</h1>
+              <h1 className="font-extrabold text-2xl py-4">Deals for you</h1>
 
               <div className="flex gap-6">
                 <FaArrowLeft
@@ -152,7 +156,7 @@ const RestaurantMenu = () => {
               </div>
             </div>
             <div
-              className={`flex gap-4 overflow-x-scroll ml-[6px] scrolling mb-6`}
+              className={`flex gap-4 overflow-x-scroll md:ml-[6px] scrolling mb-6`}
             >
               {discountData.map((data, i) => (
                 <Discounts
@@ -192,7 +196,7 @@ const RestaurantMenu = () => {
         <div
           className={`${
             cartItems.length > 0 ? "fixed animate-bounce" : "hidden"
-          } bottom-20 right-20 cursor-pointer hover:bg-gray-200 p-2 rounded-full transition-all duration-300`}
+          } md:bottom-20 bottom-6 md:right-20 right-6 cursor-pointer hover:bg-gray-200 p-2 rounded-full transition-all duration-300`}
           onClick={cartHandler}
         >
           <div className="relative">
