@@ -14,7 +14,7 @@ const Navbar = () => {
   const { getLatAndLng } = useContext(LocationContext);
 
   const [searchResult, setSearchResult] = useState([]);
-  const [searchLocation, setSearchLocation] = useState("Delhi India");
+  const [searchLocation, setSearchLocation] = useState("Delhi, India");
   const [clearText, setClearText] = useState(false);
 
   //* Navbar Data
@@ -120,7 +120,7 @@ const Navbar = () => {
               <input
                 className="font-bold text-sm border-b-2 border-gray-600 hover:border-[#fe5200] text-[#fe5200] focus:outline-none p-1  cursor-pointer w-56"
                 type="text"
-                placeholder="Noida"
+                placeholder="Delhi, India"
                 value={searchLocation}
                 onChange={(e) => handleChange(e)}
               />
@@ -182,12 +182,14 @@ const Navbar = () => {
                     setSearchValue(data.description, data.place_id)
                   }
                 >
-                  <span className="font-medium">
-                    {data.structured_formatting.main_text}
-                  </span>{" "}
-                  <span className="text-sm opacity-45">
-                    {data.structured_formatting.secondary_text}
-                  </span>
+                  <div className="line-clamp-1">
+                    <span className="font-medium">
+                      {data.structured_formatting.main_text}
+                    </span>{" "}
+                    <span className="text-sm opacity-45">
+                      {data.structured_formatting.secondary_text}
+                    </span>
+                  </div>
                 </div>
               ))}
           </div>

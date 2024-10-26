@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { IMG_SLUG_URL } from "../../utils/Constants";
+import { useDispatch } from "react-redux";
+import { addItem } from "../Store/CartSlice";
 
 const TopPicks = ({ data }) => {
   const [translateValue, setTranslateValue] = useState(0);
+  const dispatch = useDispatch();
 
   const handlePrev = () => {
     if (translateValue <= 0) {
@@ -15,6 +18,10 @@ const TopPicks = ({ data }) => {
 
   const handleNext = () => {
     setTranslateValue((prev) => prev + 20);
+  };
+
+  const addItemToCart = ({ id, name, imageId, price, quantity }) => {
+    dispatch(addItem({ id, name, imageId, price, quantity }));
   };
 
   return (
@@ -44,7 +51,11 @@ const TopPicks = ({ data }) => {
       <div className={`flex gap-4 w-full overflow-x-scroll scrolling`}>
         {data.map((data, i) => {
           const { creativeId } = data;
+          const id = data.dish.info.id;
           const price = data.dish.info.price || data.dish.info.defaultPrice;
+          const imageId = data.dish.info.imageId;
+          const name = data.dish.info.name;
+          const quantity = 1;
 
           return (
             <div
@@ -63,7 +74,12 @@ const TopPicks = ({ data }) => {
                   <h3 className="text-lg font-bold text-gray-100">
                     ₹ {price / 100}
                   </h3>
-                  <button className="px-6 py-1 bg-gray-100 text-green-600 rounded-md font-extrabold">
+                  <button
+                    className="px-6 py-1 bg-gray-100 text-green-600 rounded-md font-extrabold"
+                    onClick={() =>
+                      addItemToCart({ imageId, quantity, name, id, price })
+                    }
+                  >
                     ADD
                   </button>
                 </div>

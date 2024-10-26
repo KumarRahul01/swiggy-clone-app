@@ -6,6 +6,7 @@ import RestaurantMenu from "./components/RestaurantMenu/RestaurantMenu";
 import LocationProvider from "./components/context/LocationContext";
 import NotFound from "./components/NotFound/NotFound";
 import Cart from "./cart/Cart";
+import Success from "./components/OrderSuccess/Success";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/restaurant-menu/:slug" element={<RestaurantMenu />} />
             <Route path="/location-unservicable" element={<NotFound />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/success" element={<Success />} />
           </Routes>
         </LocationProvider>
       </div>

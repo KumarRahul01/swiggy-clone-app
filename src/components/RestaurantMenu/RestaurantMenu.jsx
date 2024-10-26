@@ -32,7 +32,6 @@ const RestaurantMenu = () => {
       }&restaurantId=${resId}&submitAction=ENTER`
     );
     const data = await res.json();
-    console.log("Actual Real Data", data);
 
     setResInfo(data?.data?.cards[2].card?.card?.info);
     setDiscountData(
@@ -42,7 +41,6 @@ const RestaurantMenu = () => {
       data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards
     );
 
-    // const topPicks = data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1].card.card.title === "Top Picks";
     if (
       data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1].card
         .card.title === "Top Picks"
@@ -52,9 +50,6 @@ const RestaurantMenu = () => {
           .card.carousel
       );
     }
-    // setTopPicks(
-    //   data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1].card.card.title
-    // );
   }
 
   useEffect(() => {

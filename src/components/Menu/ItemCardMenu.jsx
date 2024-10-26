@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { IMG_SLUG_URL } from "../../utils/Constants";
 import { IoStar } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../Store/CartSlice.jsx";
 
 const ItemCardMenu = ({ data }) => {
-  // console.log(data);
+  const [cartData, setCartData] = useState([]);
 
   const { name, imageId, finalPrice, defaultPrice, price, description, id } =
     data.card.info;
@@ -30,6 +30,7 @@ const ItemCardMenu = ({ data }) => {
   };
 
   const dispatch = useDispatch();
+  const cartItems = useSelector((store) => store.cart.cartData);
 
   const addItemToCart = (
     id,
