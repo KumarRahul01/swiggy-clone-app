@@ -34,6 +34,10 @@ const Cart = () => {
     dispatch(decreaseQty({ id }));
   };
 
+  const deleteItem = (id) => {
+    dispatch(removeItem({ id }));
+  };
+
   useEffect(() => {
     let price = 0;
     cartItems.map((item) => {
@@ -124,7 +128,7 @@ const Cart = () => {
                           <MdDelete
                             size={"1.5rem"}
                             className="text-[#f35200] cursor-pointer"
-                            onClick={() => dispatch(removeItem(item.id))}
+                            onClick={() => deleteItem(item.id)}
                           />
                         </div>
                       </h3>

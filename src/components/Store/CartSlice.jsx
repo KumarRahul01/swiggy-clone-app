@@ -19,7 +19,7 @@ export const CartSlice = createSlice({
       }
     },
     removeItem: (state, action) => {
-      const index = state.cartData.find(
+      const index = state.cartData.findIndex(
         (item) => item.id === action.payload.id
       );
       if (index !== -1) {
