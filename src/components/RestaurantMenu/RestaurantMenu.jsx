@@ -25,29 +25,45 @@ const RestaurantMenu = () => {
 
   async function fetchData() {
     const res = await fetch(
-      `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${
+      // `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${
+      //   lat || "28.7040592"
+      // }&lng=${
+      //   lng || "77.10249019999999"
+      // }&restaurantId=${resId}&submitAction=ENTER`
+
+      `https://food-delivery-cors.vercel.app/api/proxy/swiggy/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${
         lat || "28.7040592"
       }&lng=${
         lng || "77.10249019999999"
       }&restaurantId=${resId}&submitAction=ENTER`
     );
     const data = await res.json();
+    console.log(data);
+    console.log(data.data.cards.length);
 
     setResInfo(data?.data?.cards[2].card?.card?.info);
     setDiscountData(
       data?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers
     );
+
+    let searchNum = 0;
+    if (data.data.cards.length === 6) {
+      searchNum = 5;
+    } else {
+      searchNum = 4;
+    }
+
     setTopMenuData(
-      data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards
+      data?.data?.cards[searchNum]?.groupedCard?.cardGroupMap?.REGULAR.cards
     );
 
     if (
-      data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1].card
-        .card.title === "Top Picks"
+      data?.data?.cards[searchNum]?.groupedCard?.cardGroupMap?.REGULAR.cards[1]
+        .card.card.title === "Top Picks"
     ) {
       setTopPicks(
-        data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards[1].card
-          .card.carousel
+        data?.data?.cards[searchNum]?.groupedCard?.cardGroupMap?.REGULAR
+          .cards[1].card.card.carousel
       );
     }
   }

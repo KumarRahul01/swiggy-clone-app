@@ -48,7 +48,8 @@ const Navbar = () => {
 
     try {
       const res = await fetch(
-        `https://www.swiggy.com/dapi/misc/place-autocomplete?input=${val}`
+        // `https://www.swiggy.com/dapi/misc/place-autocomplete?input=${val}`
+        `https://food-delivery-cors.vercel.app/api/proxy/swiggy/dapi/misc/place-autocomplete?input=${val}`
       );
       const data = await res.json();
       setSearchResult(data.data);
@@ -62,7 +63,8 @@ const Navbar = () => {
     // console.log(id);
     try {
       const res = await fetch(
-        `https://www.swiggy.com/dapi/misc/address-recommend?place_id=${id}`
+        // `https://www.swiggy.com/dapi/misc/address-recommend?place_id=${id}`
+        `https://food-delivery-cors.vercel.app/api/proxy/swiggy/dapi/misc/address-recommend?place_id=${id}`
       );
       const data = await res.json();
       const { lat, lng } = data.data[0].geometry.location;

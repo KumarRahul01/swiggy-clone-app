@@ -7,8 +7,6 @@ const LocationProvider = ({ children }) => {
   const [lng, setLng] = useState("");
 
   const getLatAndLng = (lat, lng) => {
-    console.log(lat, lng);
-
     setLat(lat);
     setLng(lng);
   };

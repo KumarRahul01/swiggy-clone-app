@@ -51,7 +51,7 @@ const ItemCardMenu = ({ data }) => {
   };
 
   return (
-    <div className="flex flex-col-reverse md:flex-row gap-10 w-[400px] md:w-full mx-auto">
+    <div className="flex flex-col-reverse md:flex-row gap-10 w-[400px] md:w-full mx-auto overflow-hidden">
       <div className="md:w-9/12 w-full text-gray-700">
         <p>
           {vegClassifier === "VEG" || vegClassifier === "" ? (
@@ -94,7 +94,7 @@ const ItemCardMenu = ({ data }) => {
           <h3>({ratingCountV2 || 48})</h3>
         </div>
         <div>
-          <p className="font-medium">
+          <p className="font-medium overflow-hidden">
             {desc || "No description is required for this tasty meal! "}
             <button onClick={showDesc} className=" font-bold">
               {desc === description || desc == "" ? "" : "more "}
