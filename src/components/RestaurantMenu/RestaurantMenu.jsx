@@ -196,7 +196,7 @@ const RestaurantMenu = () => {
         <div
           className={`${
             cartItems.length > 0 ? "fixed animate-bounce" : "hidden"
-          } md:bottom-20 bottom-6 md:right-20 right-6 cursor-pointer hover:bg-gray-200 p-2 rounded-full transition-all duration-300`}
+          } md:bottom-20 bottom-10 md:right-20 right-6 cursor-pointer hover:bg-gray-200 p-2 rounded-full transition-all duration-300`}
           onClick={cartHandler}
         >
           <div className="relative">

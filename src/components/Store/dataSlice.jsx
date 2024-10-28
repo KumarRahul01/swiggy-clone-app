@@ -6,22 +6,22 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // ? https://cors-by-codethread-for-swiggy.vercel.app/cors/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING
 
-// ? Swiggy API: https://instafood.onrender.com/api/restaurants?lat=12.9715987&lng=77.5945627
+// ? Swiggy API: https://instafood.onrender.com/api/restaurants?lat=${lat}&lng=${lng}
 
 export const getAllData = createAsyncThunk(
   "getAllData",
   async ({ lat, lng }) => {
     const res = await fetch(
-      `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+      `https://instafood.onrender.com/api/restaurants?lat=${lat}&lng=${lng}`
     );
 
     const data = await res.json();
+
     if (data.data.cards[0].card.card.title === "Location Unserviceable") {
       console.log("Location Unserviceable");
       window.location.href = "/location-unservicable";
       return data;
     } else {
-      // console.log(data);
       return data;
     }
   }

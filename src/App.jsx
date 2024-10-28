@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import RestaurantMenu from "./components/RestaurantMenu/RestaurantMenu";
 import LocationProvider from "./components/context/LocationContext";
 import NotFound from "./components/NotFound/NotFound";
-import Cart from "./cart/Cart";
+import Cart from "./components/cart/Cart";
 import Success from "./components/OrderSuccess/Success";
 
 const App = () => {

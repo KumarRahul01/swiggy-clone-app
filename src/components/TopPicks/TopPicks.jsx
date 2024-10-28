@@ -60,7 +60,7 @@ const TopPicks = ({ data }) => {
           return (
             <div
               key={i}
-              className="md:w-[340px] min-w-[260px] transition-all duration-700 md:relative"
+              className="md:min-w-[340px] min-w-[260px] transition-all duration-700 md:relative"
               style={{ translate: `-${translateValue}rem` }}
             >
               <img

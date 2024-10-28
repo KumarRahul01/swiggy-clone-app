@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IMG_SLUG_URL } from "../utils/Constants";
+import { IMG_SLUG_URL } from "../../utils/Constants";
 import {
   clearCart,
   decreaseQty,
   increaseQty,
   removeItem,
-} from "../components/Store/CartSlice";
+} from "../Store/CartSlice";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { persistor } from "../components/Store/SwiggyStore";
+import { persistor } from "../Store/SwiggyStore";
 import toast from "react-hot-toast";
 
 const Cart = () => {
@@ -75,7 +75,7 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="px-5">
+        <div className="p-5 md:p-0">
           {cartItems.length > 0 ? (
             <div className="md:w-[800px] mx-auto md:my-4">
               {cartItems.map((item) => {
@@ -84,11 +84,11 @@ const Cart = () => {
                     key={item.id}
                     className="overflow-hidden sm:flex items-center justify-between w-full md:gap-10 gap-6 mb-2 border-b-2"
                   >
-                    <div className="w-full bg-red-400 text-gray-700">
+                    <div className="w-full text-gray-700 p-5 md:p-0">
                       <h1 className="text-lg font-bold text-gray-700">
                         {item.name}
                       </h1>
-                      <h3 className="font-semibold text-black flex gap-1 mb-2 tracking-wide">
+                      <h3 className="font-semibold text-gray-700 flex gap-1 my-2 tracking-wide">
                         ₹{" "}
                         {item.finalPrice && (
                           <span className="line-through">
@@ -101,9 +101,9 @@ const Cart = () => {
                             : item.price / 100 || item.defaultPrice / 100}
                         </span>
                       </h3>
-                      <h3 className="font-bold text-lg">
+                      <h3 className="font-semibold md:font-bold text-lg">
                         Quantity:
-                        <div className="flex gap-4 items-center my-2">
+                        <div className="flex md:gap-4 gap-3 items-center my-2">
                           <button
                             className="bg-[#f35200] px-2 text-xl text-gray-100"
                             onClick={() => decreaseHandler(item.id)}
