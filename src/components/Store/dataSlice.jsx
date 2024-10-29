@@ -12,15 +12,13 @@ export const getAllData = createAsyncThunk(
   "getAllData",
   async ({ lat, lng }) => {
     const res = await fetch(
-      // `https://instafood.onrender.com/api/restaurants?lat=${lat}&lng=${lng}`
+      `https://instafood.onrender.com/api/restaurants?lat=${lat}&lng=${lng}`
       // `https://food-delivery-cors.vercel.app/api/proxy/swiggy/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
-      `https://cors-by-codethread-for-swiggy.vercel.app/cors/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
     );
 
     const data = await res.json();
 
     if (data.data.cards[0].card.card.title === "Location Unserviceable") {
-      console.log("Location Unserviceable");
       window.location.href = "/location-unservicable";
       return data;
     } else {
