@@ -8,12 +8,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // ? Swiggy API: https://instafood.onrender.com/api/restaurants?lat=${lat}&lng=${lng}
 
+// ? https://food-delivery-cors.vercel.app/api/proxy/swiggy/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING
+
 export const getAllData = createAsyncThunk(
   "getAllData",
   async ({ lat, lng }) => {
     const res = await fetch(
       `https://instafood.onrender.com/api/restaurants?lat=${lat}&lng=${lng}`
-      // `https://food-delivery-cors.vercel.app/api/proxy/swiggy/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
     );
 
     const data = await res.json();

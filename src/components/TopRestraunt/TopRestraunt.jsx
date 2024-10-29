@@ -24,9 +24,9 @@ const TopRestraunt = () => {
 
   useEffect(() => {
     if (data && data.data && data.data.cards?.[0]?.card?.card) {
-      setTitle(data.data.cards[0].card.card.header?.title || "");
+      setTitle(data.data.cards[1].card.card.header?.title || "");
       setRestaurant(
-        data.data.cards[0].card.card.gridElements?.infoWithStyle?.restaurants ||
+        data.data.cards[1].card.card.gridElements?.infoWithStyle?.restaurants ||
           []
       );
     }
