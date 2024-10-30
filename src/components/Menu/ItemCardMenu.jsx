@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IMG_SLUG_URL } from "../../utils/Constants";
+import { CLOUDINARY_IMG_URL, IMG_SLUG_URL } from "../../utils/Constants";
 import { IoStar } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../Store/CartSlice.jsx";
@@ -106,7 +106,7 @@ const ItemCardMenu = ({ data }) => {
         <div className="w-full p-3 relative flex flex-col items-center justify-center">
           <img
             className="h-40 aspect-[3/2] object-cover rounded-xl shadow-md md:shadow-none"
-            src={imageId ? IMG_SLUG_URL + imageId : "/tempImg.webp"}
+            src={imageId ? CLOUDINARY_IMG_URL + imageId : "/tempImg.webp"}
             alt={name}
           />
           <button

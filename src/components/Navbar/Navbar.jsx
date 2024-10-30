@@ -1,8 +1,4 @@
-import { MdMenu, MdOutlineShoppingCart } from "react-icons/md";
-import { PiBagSimpleBold } from "react-icons/pi";
-import { CgSearch } from "react-icons/cg";
-import { RiDiscountPercentLine } from "react-icons/ri";
-import { IoHelpBuoyOutline } from "react-icons/io5";
+import { MdMenu, MdOutlineShoppingCart, MdSearch } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { FaRegUser } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
@@ -16,20 +12,6 @@ const Navbar = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [searchLocation, setSearchLocation] = useState("Delhi, India");
   const [clearText, setClearText] = useState(false);
-
-  //* Navbar Data
-  const navData = [
-    {
-      name: "Search",
-      to: "#",
-      icon: "CgSearch",
-    },
-    {
-      name: "Sign In",
-      to: "#",
-      icon: "FaRegUser",
-    },
-  ];
 
   //* Calling AutoComple Search API
 
@@ -68,7 +50,6 @@ const Navbar = () => {
       );
       const data = await res.json();
       const { lat, lng } = data.data[0].geometry.location;
-      // console.log("Your Lat & lng coordinates", lat, lng);
       getLatAndLng(lat, lng);
     } catch (error) {
       console.log(error);
@@ -128,20 +109,24 @@ const Navbar = () => {
 
           {/* Links Div */}
           <div className="w-full hidden md:flex justify-end items-center">
-            <ul className="flex gap-14 bg-re-200 font-semibold text-gray-600">
+            <ul className="flex gap-14 font-semibold text-gray-600">
               {/* List Items */}
-              {navData.map((data, index) => {
-                return (
-                  <Link
-                    to={navData.to}
-                    key={index}
-                    className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer"
-                  >
-                    {/* <data.icon size={"1.35rem"} /> */}
-                    {data.name}
-                  </Link>
-                );
-              })}
+              <Link
+                to={"/search"}
+                className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer relative"
+              >
+                <MdSearch size={"1.45rem"} />
+                Search
+              </Link>
+
+              <Link
+                to={"/sign-in"}
+                className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer relative"
+              >
+                <FaRegUser size={"1.25rem"} />
+                Sign In
+              </Link>
+
               <Link
                 to={"/cart"}
                 className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer relative"
