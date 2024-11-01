@@ -20,6 +20,7 @@ const RestaurantMenu = () => {
   const [discountData, setDiscountData] = useState([]);
   const [translateValue, setTranslateValue] = useState(0);
   const [topPicks, setTopPicks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { lat, lng } = useContext(LocationContext);
 
@@ -38,6 +39,7 @@ const RestaurantMenu = () => {
       }&restaurantId=${resId}&submitAction=ENTER`
     );
     const data = await res.json();
+    setLoading(false);
 
     setResInfo(data?.data?.cards[2].card?.card?.info);
     setDiscountData(
@@ -90,141 +92,170 @@ const RestaurantMenu = () => {
 
   return (
     <>
-      <div className="w-full md:relative block px-5">
-        <div className="md:w-[800px] mx-auto my-5">
-          <p className="text-xs font-light">
-            <Link to={"/"} className="text-gray-500 hover:text-gray-950">
-              Home
-            </Link>{" "}
-            /{" "}
-            <Link to={"/"} className="text-gray-500 hover:text-gray-950">
-              {resInfo.city}
-            </Link>{" "}
-            / <span className="text-gray-900 font-medium">{resInfo.name}</span>
-          </p>
-
-          <h1 className="text-2xl font-extrabold mt-12 mb-4">{resInfo.name}</h1>
-
-          {/* Restaurant Card */}
-          <div className="w-full rounded-3xl bg-gradient-to-t from-gray-300 p-5">
-            <div className="w-full h-full border border-gray-300 bg-white rounded-2xl p-5">
-              <div className="flex items-center font-bold gap-2">
-                <MdStars size="1.25rem" className="text-green-700" />
-                <span>{resInfo.avgRating}</span>
-                <span>({resInfo.totalRatingsString})</span>
-                <span className="h-1 w-1 rounded-full hidden md:inline-block md:mb-0 bg-gray-500"></span>
-                <span className="hidden md:block">
-                  {resInfo.costForTwoMessage}
+      {loading ? (
+        <>
+          <div className="max-w-[800px] mx-auto">
+            <div className="bg-gray-300 h-5 my-4 w-1/4 animate-pulse"></div>
+            <div className="bg-gray-300 h-10 w-1/3 animate-pulse my-8"></div>
+            <div className="bg-gray-300 h-48 w-full animate-pulse mb-6"></div>
+            <div className="bg-gray-300 h-10 mt-4 w-1/3 animate-pulse mb-8"></div>
+            <div className="flex gap-4 overflow-hidden my-6">
+              <div className="min-w-[328px] h-[76px] bg-gray-300 rounded-xl"></div>
+              <div className="min-w-[328px] h-[76px] bg-gray-300 rounded-xl"></div>
+              <div className="min-w-[328px] h-[76px] bg-gray-300 rounded-xl"></div>
+            </div>
+            <div className="flex gap-4">
+              <div className="bg-gray-300 h-56 w-1/2 animate-pulse"></div>
+              <div className="bg-gray-300 h-56 w-1/2 animate-pulse"></div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="w-full md:relative block px-5">
+            <div className="md:w-[800px] mx-auto my-5">
+              <p className="text-xs font-light">
+                <Link to={"/"} className="text-gray-500 hover:text-gray-950">
+                  Home
+                </Link>{" "}
+                /{" "}
+                <Link to={"/"} className="text-gray-500 hover:text-gray-950">
+                  {resInfo.city}
+                </Link>{" "}
+                /{" "}
+                <span className="text-gray-900 font-medium">
+                  {resInfo.name}
                 </span>
-              </div>
+              </p>
 
-              {/* cuisines */}
+              <h1 className="text-2xl font-extrabold mt-12 mb-4">
+                {resInfo.name}
+              </h1>
+
+              {/* Restaurant Card */}
+              <div className="w-full rounded-3xl bg-gradient-to-t from-gray-300 p-5">
+                <div className="w-full h-full border border-gray-300 bg-white rounded-2xl p-5">
+                  <div className="flex items-center font-bold gap-2">
+                    <MdStars size="1.25rem" className="text-green-700" />
+                    <span>{resInfo.avgRating}</span>
+                    <span>({resInfo.totalRatingsString})</span>
+                    <span className="h-1 w-1 rounded-full hidden md:inline-block md:mb-0 bg-gray-500"></span>
+                    <span className="hidden md:block">
+                      {resInfo.costForTwoMessage}
+                    </span>
+                  </div>
+
+                  {/* cuisines */}
+                  <div>
+                    <p className="font-bold underline text-[#fe5200] py-1 text-[15px] tracking-tight mt-2 line-clamp-1">
+                      {resInfo.cuisines?.join(", ")}
+                    </p>
+                  </div>
+
+                  {/* Outlet & Timings */}
+                  <div className="flex items-center gap-4 line-clamp-1">
+                    <div className="flex flex-col justify-center items-center w-2 my-4">
+                      <div className="w-[7px] h-[7px] bg-gray-300 rounded-full"></div>
+                      <div className="w-[1.7px] h-7 bg-gray-300"></div>
+                      <div className="w-[7px] h-[7px] bg-gray-300 rounded-full flex items-center justify-center"></div>
+                    </div>
+                    {/* Text */}
+                    <div className="flex flex-col gap-3 text-sm">
+                      <p>
+                        <span className="font-bold">Outlet</span>{" "}
+                        <span className="pl-2">{resInfo.locality}</span>
+                      </p>
+                      <p className="font-bold">60-65 mins</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Deals For You */}
               <div>
-                <p className="font-bold underline text-[#fe5200] py-1 text-[15px] tracking-tight mt-2 line-clamp-1">
-                  {resInfo.cuisines?.join(", ")}
-                </p>
-              </div>
+                <div className="flex items-center justify-between">
+                  <h1 className="font-extrabold text-2xl py-4">
+                    Deals for you
+                  </h1>
 
-              {/* Outlet & Timings */}
-              <div className="flex items-center gap-4 line-clamp-1">
-                <div className="flex flex-col justify-center items-center w-2 my-4">
-                  <div className="w-[7px] h-[7px] bg-gray-300 rounded-full"></div>
-                  <div className="w-[1.7px] h-7 bg-gray-300"></div>
-                  <div className="w-[7px] h-[7px] bg-gray-300 rounded-full flex items-center justify-center"></div>
+                  <div className="flex gap-6">
+                    <FaArrowLeft
+                      size={"1.65rem"}
+                      className={`${
+                        translateValue === 0
+                          ? "bg-gray-200 text-gray-400"
+                          : "bg-gray-200 "
+                      } rounded-full p-1 cursor-pointer`}
+                      onClick={handlePrev}
+                    />
+                    <FaArrowRight
+                      size={"1.65rem"}
+                      className={`${
+                        translateValue >= 70
+                          ? "bg-gray-200 text-gray-400"
+                          : "bg-gray-200"
+                      } rounded-full p-1 cursor-pointer`}
+                      onClick={handleNext}
+                    />
+                  </div>
                 </div>
-                {/* Text */}
-                <div className="flex flex-col gap-3 text-sm">
-                  <p>
-                    <span className="font-bold">Outlet</span>{" "}
-                    <span className="pl-2">{resInfo.locality}</span>
-                  </p>
-                  <p className="font-bold">60-65 mins</p>
+                <div
+                  className={`flex gap-4 overflow-x-scroll md:ml-[6px] scrolling mb-6`}
+                >
+                  {discountData.map((data, i) => (
+                    <Discounts
+                      data={data}
+                      key={i}
+                      translateValue={translateValue}
+                    />
+                  ))}
+                </div>
+
+                {/* Menu */}
+                <div className="py-5 ">
+                  <div className="tracking-widest text-[16px] font-semibold text-center">
+                    MENU
+                  </div>
+
+                  {/* Search Div */}
+                  {/* <div className="relative flex items-center justify-center bg-gray-100 border border-gray-100 py-3 rounded-xl my-5 cursor-pointer">
+                    <h1 className="text-[16px] font-semibold text-gray-600">
+                      Search for dishes
+                    </h1>
+                    <span className="absolute right-4">
+                      <IoIosSearch size={"1.25rem"} />
+                    </span>
+                  </div> */}
+
+                  {/* Top-Picks */}
+                  {topPicks.length > 0 && <TopPicks data={topPicks} />}
+
+                  {/* Menu */}
+                  <Menu topMenuData={topMenuData} />
                 </div>
               </div>
             </div>
-          </div>
-          {/* Deals For You */}
-          <div>
-            <div className="flex items-center justify-between">
-              <h1 className="font-extrabold text-2xl py-4">Deals for you</h1>
 
-              <div className="flex gap-6">
-                <FaArrowLeft
-                  size={"1.65rem"}
-                  className={`${
-                    translateValue === 0
-                      ? "bg-gray-200 text-gray-400"
-                      : "bg-gray-200 "
-                  } rounded-full p-1 cursor-pointer`}
-                  onClick={handlePrev}
-                />
-                <FaArrowRight
-                  size={"1.65rem"}
-                  className={`${
-                    translateValue >= 70
-                      ? "bg-gray-200 text-gray-400"
-                      : "bg-gray-200"
-                  } rounded-full p-1 cursor-pointer`}
-                  onClick={handleNext}
-                />
-              </div>
-            </div>
+            {/* Cart Logo on right side */}
             <div
-              className={`flex gap-4 overflow-x-scroll md:ml-[6px] scrolling mb-6`}
+              className={`${
+                cartItems.length > 0 ? "fixed animate-bounce" : "hidden"
+              } md:bottom-20 bottom-10 md:right-20 right-6 cursor-pointer hover:bg-gray-200 p-2 rounded-full transition-all duration-300`}
+              onClick={cartHandler}
             >
-              {discountData.map((data, i) => (
-                <Discounts
-                  data={data}
-                  key={i}
-                  translateValue={translateValue}
-                />
-              ))}
-            </div>
-
-            {/* Menu */}
-            <div className="py-5 ">
-              <div className="tracking-widest text-[16px] font-semibold text-center">
-                MENU
+              <div className="relative">
+                <MdOutlineShoppingCart size={"2.5rem"} />
               </div>
-
-              {/* Search Div */}
-              <div className="relative flex items-center justify-center bg-gray-100 border border-gray-100 py-3 rounded-xl my-5 cursor-pointer">
-                <h1 className="text-[16px] font-semibold text-gray-600">
-                  Search for dishes
-                </h1>
-                <span className="absolute right-4">
-                  <IoIosSearch size={"1.25rem"} />
-                </span>
+              <div
+                className={`top-0 right-3 text-sm font-bold rounded-full text-gray-100 bg-[#fe5200] px-2 ${
+                  cartItems.length === 0 ? "hidden" : "absolute"
+                }`}
+              >
+                {cartItems.length}
               </div>
-
-              {/* Top-Picks */}
-              {topPicks.length > 0 && <TopPicks data={topPicks} />}
-
-              {/* Menu */}
-              <Menu topMenuData={topMenuData} />
             </div>
           </div>
-        </div>
-
-        {/* Cart Logo on right side */}
-        <div
-          className={`${
-            cartItems.length > 0 ? "fixed animate-bounce" : "hidden"
-          } md:bottom-20 bottom-10 md:right-20 right-6 cursor-pointer hover:bg-gray-200 p-2 rounded-full transition-all duration-300`}
-          onClick={cartHandler}
-        >
-          <div className="relative">
-            <MdOutlineShoppingCart size={"2.5rem"} />
-          </div>
-          <div
-            className={`top-0 right-3 text-sm font-bold rounded-full text-gray-100 bg-[#fe5200] px-2 ${
-              cartItems.length === 0 ? "hidden" : "absolute"
-            }`}
-          >
-            {cartItems.length}
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };
