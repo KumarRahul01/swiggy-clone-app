@@ -33,7 +33,11 @@ const TopRestraunt = () => {
   };
 
   const handleNext = () => {
-    setTranslateValue((prev) => prev + 60);
+    if (translateValue >= 320) {
+      setTranslateValue(320); // Adjust based on item width and gap
+    } else {
+      setTranslateValue((prev) => prev + 60);
+    }
   };
 
   return (
@@ -66,7 +70,7 @@ const TopRestraunt = () => {
                 <FaArrowRight
                   size={"1.65rem"}
                   className={`${
-                    translateValue >= 200
+                    translateValue >= 320
                       ? "bg-gray-200 text-gray-400"
                       : "bg-gray-200"
                   } rounded-full p-1 cursor-pointer`}
@@ -83,7 +87,7 @@ const TopRestraunt = () => {
                   return (
                     <div
                       key={resdata.id}
-                      className="md:min-w-[268px] min-w-[240px] h-fit rounded-lg text-gray-900 cursor-pointer hover:scale-90 transition-all duration-300"
+                      className="md:min-w-[268px] min-w-[240px] h-fit rounded-lg text-gray-900 cursor-pointer hover:scale-90 transition-all duration-700"
                       style={{ translate: `-${translateValue}rem` }}
                     >
                       <TopRestaurantFoodCard

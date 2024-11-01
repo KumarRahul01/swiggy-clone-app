@@ -6,7 +6,7 @@ const Discounts = ({ data, translateValue }) => {
 
   return (
     <div
-      className="min-w-[328px] h-[76px] border rounded-2xl flex items-center gap-5 transition-all duration-300"
+      className="min-w-[328px] h-[76px] border rounded-2xl flex items-center gap-5 transition-all duration-700"
       style={{ translate: `-${translateValue}rem` }}
     >
       <div className="flex items-center gap-4 px-4">

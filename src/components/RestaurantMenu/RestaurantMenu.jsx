@@ -81,7 +81,11 @@ const RestaurantMenu = () => {
   };
 
   const handleNext = () => {
-    setTranslateValue((prev) => prev + 20);
+    if (translateValue >= 60) {
+      setTranslateValue(60); // Adjust based on item width and gap
+    } else {
+      setTranslateValue((prev) => prev + 20);
+    }
   };
 
   const cartItems = useSelector((store) => store.cart.cartData);
@@ -190,7 +194,7 @@ const RestaurantMenu = () => {
                     <FaArrowRight
                       size={"1.65rem"}
                       className={`${
-                        translateValue >= 70
+                        translateValue >= 60
                           ? "bg-gray-200 text-gray-400"
                           : "bg-gray-200"
                       } rounded-full p-1 cursor-pointer`}
@@ -199,7 +203,7 @@ const RestaurantMenu = () => {
                   </div>
                 </div>
                 <div
-                  className={`flex gap-4 overflow-x-scroll md:ml-[6px] scrolling mb-6`}
+                  className={`flex gap-4 overflow-x-scroll md:ml-[6px] scrolling mb-6 `}
                 >
                   {discountData.map((data, i) => (
                     <Discounts
