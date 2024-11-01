@@ -43,10 +43,10 @@ const TopRestraunt = () => {
           <div className="items-center justify-between mt-12 mb-8">
             <div className="bg-gray-300 animate-pulse w-1/3 h-8"></div>
             <div className="flex md:gap-10 gap-4 mt-10 overflow-x-scroll scrolling">
-              <div className="md:min-w-[268px]  w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
-              <div className="md:min-w-[268px]  w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
-              <div className="md:min-w-[268px]  w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
-              <div className="md:min-w-[268px]  w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
+              <div className="md:min-w-[268px]  min-w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
+              <div className="md:min-w-[268px]  min-w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
+              <div className="md:min-w-[268px]  min-w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
+              <div className="md:min-w-[268px]  min-w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
             </div>
           </div>
         ) : (
