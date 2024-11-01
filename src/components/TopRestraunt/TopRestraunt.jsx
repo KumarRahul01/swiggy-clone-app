@@ -41,7 +41,7 @@ const TopRestraunt = () => {
       <div className="md:ml-8 mb-4">
         {loading ? (
           <div className="items-center justify-between mt-12 mb-8">
-            <div className="bg-gray-300 animate-pulse w-1/3 h-8"></div>
+            <div className="bg-gray-300 animate-pulse md:w-1/3 w-[80%] h-8"></div>
             <div className="flex md:gap-10 gap-4 mt-10 overflow-x-scroll scrolling">
               <div className="md:min-w-[268px]  min-w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
               <div className="md:min-w-[268px]  min-w-[240px] h-[182px] bg-gray-300 rounded-md my-4 animate-pulse"></div>
@@ -97,7 +97,7 @@ const TopRestraunt = () => {
           </>
         )}
       </div>
-      <hr className="border-[2px] ml-8" />
+      <hr className="border-[2px] md:ml-8" />
     </>
   );
 };

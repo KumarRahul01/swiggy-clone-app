@@ -94,19 +94,19 @@ const RestaurantMenu = () => {
     <>
       {loading ? (
         <>
-          <div className="max-w-[800px] mx-auto">
-            <div className="bg-gray-300 h-5 my-4 w-1/4 animate-pulse"></div>
-            <div className="bg-gray-300 h-10 w-1/3 animate-pulse my-8"></div>
+          <div className="max-w-[800px] mx-auto p-5 md:p-0">
+            <div className="bg-gray-300 h-5 md:my-4 my-1 md:w-1/4 w-1/2 animate-pulse"></div>
+            <div className="bg-gray-300 h-10 md:w-1/3 w-[80%] animate-pulse my-8"></div>
             <div className="bg-gray-300 h-48 w-full animate-pulse mb-6"></div>
-            <div className="bg-gray-300 h-10 mt-4 w-1/3 animate-pulse mb-8"></div>
+            <div className="bg-gray-300 h-10 mt-4 md:w-1/3 w-[80%] animate-pulse mb-8"></div>
             <div className="flex gap-4 overflow-hidden my-6">
               <div className="min-w-[328px] h-[76px] bg-gray-300 rounded-xl"></div>
               <div className="min-w-[328px] h-[76px] bg-gray-300 rounded-xl"></div>
               <div className="min-w-[328px] h-[76px] bg-gray-300 rounded-xl"></div>
             </div>
             <div className="flex gap-4">
-              <div className="bg-gray-300 h-56 w-1/2 animate-pulse"></div>
-              <div className="bg-gray-300 h-56 w-1/2 animate-pulse"></div>
+              <div className="bg-gray-300 h-56 md:w-1/2 min-w-[272px] rounded-md animate-pulse"></div>
+              <div className="bg-gray-300 h-56 md:w-1/2 min-w-[272px] rounded-md animate-pulse"></div>
             </div>
           </div>
         </>
