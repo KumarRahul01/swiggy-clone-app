@@ -35,11 +35,8 @@ const RestaurantOnline = () => {
         <div className="flex items-center justify-center flex-wrap gap-4 mt-10 mb-16 pb-20">
           {restaurant &&
             restaurant.map((restaurant) => {
-              console.log(restaurant);
-
               const resdata = restaurant.info;
               const reslink = restaurant?.cta?.link;
-              console.log(reslink);
 
               return (
                 <div

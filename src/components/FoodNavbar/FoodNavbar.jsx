@@ -84,7 +84,7 @@ const FoodNavbar = () => {
               key={item.id}
               src={`${IMG_SLUG_URL}${item.imageId}`}
               alt="food-img"
-              className={`w-[9rem] cursor-pointer transition-all duration-700`}
+              className={`w-[9rem] transition-all duration-700`}
               style={{ transform: `translateX(-${translateValue}rem)` }}
             />
           ))

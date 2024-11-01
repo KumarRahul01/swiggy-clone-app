@@ -102,30 +102,27 @@ const Navbar = () => {
                 />
               </div>
             )}
-            <div className="md:hidden block">
-              <MdMenu size={"1.55rem"} />
-            </div>
           </div>
 
           {/* Links Div */}
-          <div className="w-full hidden md:flex justify-end items-center">
+          <div className="w-full flex justify-end items-center">
             <ul className="flex gap-14 font-semibold text-gray-600">
               {/* List Items */}
-              <Link
+              {/* <Link
                 to={"/search"}
                 className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer relative"
               >
                 <MdSearch size={"1.45rem"} />
                 Search
-              </Link>
+              </Link> */}
 
-              <Link
+              {/* <Link
                 to={"/sign-in"}
                 className="flex gap-2 items-center hover:text-[#fe5200] cursor-pointer relative"
               >
                 <FaRegUser size={"1.25rem"} />
                 Sign In
-              </Link>
+              </Link> */}
 
               <Link
                 to={"/cart"}

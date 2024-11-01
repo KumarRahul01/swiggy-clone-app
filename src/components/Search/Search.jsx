@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   MdLocalDining,
+  MdOutlineShoppingCart,
   MdSearch,
   MdStar,
   MdTimeline,
@@ -13,6 +14,7 @@ import { LocationContext } from "../context/LocationContext";
 import { CLOUDINARY_IMG_URL, IMG_SLUG_URL } from "../../utils/Constants";
 import { Navigate, useNavigate } from "react-router-dom";
 import TopRestaurantFoodCard from "../TopRestraunt/TopRestaurantFoodCard";
+import RestaurantMenu from "../RestaurantMenu/RestaurantMenu";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ const Search = () => {
   const [restaurantData, setRestaurantData] = useState([]);
   const [displayedCount, setDisplayedCount] = useState(10);
   const [showResData, setShowResData] = useState(false);
-  const [showSearchData, setShowSearchData] = useState(false);
+  // const [showSearchData, setShowSearchData] = useState(false);
 
   const data = useSelector((store) => store.app.data);
   const dispatch = useDispatch();
@@ -58,7 +60,8 @@ const Search = () => {
 
     const data = await res.json();
     setSearchResult(data?.data?.suggestions || []);
-    setShowSearchData(true);
+    // setShowSearchData(true);
+    setShowResData(false);
   };
 
   useEffect(() => {
@@ -82,7 +85,8 @@ const Search = () => {
     // const displayedData = resData.slice(0, displayedCount);
     // console.log(displayedData);
     setRestaurantData(resData);
-    console.log(resData);
+    // setShowResData(true);
+    navigate(<RestaurantMenu />);
   };
 
   const handleLoadMore = () => {
@@ -90,22 +94,41 @@ const Search = () => {
   };
 
   const clickHandler = () => {
-    setShowSearchData(false);
+    // setShowSearchData(false);
+    setShowResData(true);
     fetchRestaurants();
   };
 
-  // const restaurantClickHandler = async (resId) => {
-  //   // const res = await fetch(
-  //   //   `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.5355161&lng=77.3910265&restaurantId=${resId}&catalog_qa=undefined&metaData=%7B%22type%22%3A%22DISH%22%2C%22data%22%3A%7B%22vegIdentifier%22%3A%22NA%22%2C%22cloudinaryId%22%3A%22btrmbvwdfin5wp4dw1v7%22%2C%22dishFamilyId%22%3A%22846516%22%2C%22dishFamilyIds%22%3A%5B%22846516%22%5D%7D%2C%22businessCategory%22%3A%22SWIGGY_FOOD%22%2C%22displayLabel%22%3A%22Dish%22%7D&submitAction=SUGGESTION`
-  //   // );
-  //   // const data = await res.json();
-  //   // console.log(data);
-  //   // const resLink = `https://www.swiggy.com/city/noida-1/the-tandoori-tales-sector-72-rest260479`
-  //   // // navigate("/restaurant-menu/:slug");
+  // const addItemToCart = (
+  //   id,
+  //   name,
+  //   imageId,
+  //   finalPrice,
+  //   defaultPrice,
+  //   price
+  // ) => {
+  //   dispatch(
+  //     addItem({
+  //       id,
+  //       name,
+  //       imageId,
+  //       price: finalPrice || defaultPrice || price,
+  //       quantity: 1,
+  //     })
+  //   );
   // };
 
+  const cartItems = useSelector((store) => store.cart.cartData);
+  const cartHandler = () => {
+    navigate("/cart");
+  };
+
+  const navigateRes = (resLink, resInfo) => {
+    console.log("yes");
+  };
+
   return (
-    <div className="w-full md:relative block px-5 my-10">
+    <div className="w-full md:relative block px-5 my-10 relative">
       <div className="md:w-[800px] mx-auto my-5">
         {/* Input Box */}
         <div className="relative">
@@ -152,7 +175,7 @@ const Search = () => {
 
         {/* Search Result */}
 
-        {searchResult.length > 0 && showSearchData ? (
+        {searchResult.length > 0 && !showResData ? (
           <div className="w-full mt-8">
             {searchResult.length > 0 && (
               <h1 className="text-gray-700 font-extrabold text-2xl">
@@ -188,7 +211,7 @@ const Search = () => {
         ) : null}
 
         {/* Restaurant Data */}
-        {restaurantData.length > 0 && (
+        {restaurantData.length > 0 && showResData ? (
           <div className="w-full mt-10">
             <h1 className="text-gray-700 font-extrabold text-2xl">
               Restaurants
@@ -197,6 +220,17 @@ const Search = () => {
             {/* Restaurant cards */}
             <div className="w-full bg-[#f5f6f8] grid md:grid-cols-2 grid-cols-1">
               {restaurantData.map((item) => {
+                const resId = item.card.card.info.id;
+                const city = item.card.card.info.slugs.city;
+                const restaurant = item.card.card.info.slugs.restaurant;
+
+                const resLink = `https://www.swiggy.com/city/${city}/${restaurant}-${
+                  "rest" + resId
+                }`;
+
+                const shortResLink = `${city}-${restaurant}-${"rest" + resId}`;
+                const resInfo = item.card.card.info;
+
                 const {
                   id,
                   name,
@@ -206,9 +240,18 @@ const Search = () => {
                   promoted,
                   sla,
                 } = item.card.card.info;
+
                 return (
-                  <div key={id} className="">
-                    <div className="w-[90%] mx-auto my-6 p-4 h-[130px] bg-white flex gap-4 items-center rounded transition-all duration-200 hover:shadow-lg">
+                  <div
+                    key={id}
+                    className=""
+                    onClick={() =>
+                      navigate(`/city/${shortResLink}`, {
+                        state: { data: { resLink, resInfo } },
+                      })
+                    }
+                  >
+                    <div className="w-[90%] mx-auto my-6 p-4 h-[130px] bg-white flex gap-4 items-center rounded transition-all duration-200 hover:shadow-lg cursor-pointer">
                       <div className="relative">
                         <img
                           className="min-w-[5rem] aspect-square h-[80px] object-cover rounded-md bg-slate-200 border"
@@ -220,11 +263,11 @@ const Search = () => {
                             <h3 className="text-xs">Ad</h3>
                           </div>
                         )}
-                        <div className="absolute -bottom-4 left-[8px]">
+                        {/* <div className="absolute -bottom-4 left-[8px]">
                           <button className="text-sm bg-[#f35200] text-gray-200 px-4 py-[2px] font-semibold tracking-wide rounded-sm">
                             ADD
                           </button>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="flex flex-col gap-1">
                         <h1 className="font-bold text-gray-700 line-clamp-1">
@@ -253,7 +296,26 @@ const Search = () => {
               })}
             </div>
           </div>
-        )}
+        ) : null}
+      </div>
+
+      {/* Cart Logo on right side */}
+      <div
+        className={`${
+          cartItems.length > 0 ? "fixed animate-bounce" : "hidden"
+        } md:bottom-20 bottom-10 md:right-20 right-6 cursor-pointer hover:bg-gray-200 p-2 rounded-full transition-all duration-300`}
+        onClick={cartHandler}
+      >
+        <div className="relative">
+          <MdOutlineShoppingCart size={"2.5rem"} />
+        </div>
+        <div
+          className={`top-0 right-3 text-sm font-bold rounded-full text-gray-100 bg-[#fe5200] px-2 ${
+            cartItems.length === 0 ? "hidden" : "absolute"
+          }`}
+        >
+          {cartItems.length}
+        </div>
       </div>
     </div>
   );

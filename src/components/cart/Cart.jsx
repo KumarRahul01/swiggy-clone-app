@@ -54,7 +54,7 @@ const Cart = () => {
       dispatch(clearCart());
       navigate("/success");
       setLoading(false);
-    }, 3000);
+    }, 1000);
 
     // clearing the persisted cart data in localStorage
     // persistor.purge();
@@ -136,7 +136,7 @@ const Cart = () => {
                     <div className="w-full sm:w-1/2 flex flex-wrap justify-center items-center">
                       <div className="w-full p-3">
                         <img
-                          className="h-40 aspect-[3/2] w-full object-cover rounded-xl"
+                          className="h-40 aspect-[3/2] w-full object-cover rounded-xl border"
                           src={
                             item.imageId
                               ? IMG_SLUG_URL + item.imageId
