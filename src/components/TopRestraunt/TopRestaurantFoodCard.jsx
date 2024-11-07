@@ -4,6 +4,8 @@ import { MdStars } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const TopRestaurantFoodCard = ({ resdata, reslink }) => {
+  console.log(resdata);
+
   return (
     <Link to={`/restaurant-menu/${reslink.split("/").at(-1)}`}>
       <div href="#" className="relative" key={resdata.id}>
@@ -22,7 +24,8 @@ const TopRestaurantFoodCard = ({ resdata, reslink }) => {
                 " " +
                 (resdata.aggregatedDiscountInfoV3?.subHeader
                   ? resdata.aggregatedDiscountInfoV3?.subHeader
-                  : resdata.aggregatedDiscountInfoV3?.discountTag)
+                  : resdata.aggregatedDiscountInfoV3?.discountTag ||
+                    "UPTO ₹ 200")
               : "20% OFF UPTO ₹ 200"}
           </h3>
         </div>
