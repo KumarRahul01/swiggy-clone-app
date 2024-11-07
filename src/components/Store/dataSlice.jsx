@@ -31,7 +31,6 @@ export const getAllData = createAsyncThunk(
     );
 
     const data = await res.json();
-    console.log(data);
 
     // Redirect if the location is unserviceable
     if (data.data.cards[0]?.card?.card?.title === "Location Unserviceable") {
