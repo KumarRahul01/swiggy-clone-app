@@ -4,8 +4,6 @@ import { MdStars } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const TopRestaurantFoodCard = ({ resdata, reslink }) => {
-  console.log(resdata);
-
   return (
     <Link to={`/restaurant-menu/${reslink.split("/").at(-1)}`}>
       <div href="#" className="relative" key={resdata.id}>
