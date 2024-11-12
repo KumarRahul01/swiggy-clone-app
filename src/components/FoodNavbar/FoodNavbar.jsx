@@ -50,8 +50,8 @@ const FoodNavbar = () => {
   };
 
   const handleNext = () => {
-    if (translateValue >= 90) {
-      setTranslateValue(90); // Adjust based on item width and gap
+    if (translateValue >= 180) {
+      setTranslateValue(180); // Adjust based on item width and gap
     } else {
       setTranslateValue((prev) => prev + 30);
     }

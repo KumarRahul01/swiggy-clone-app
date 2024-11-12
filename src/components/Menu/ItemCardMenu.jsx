@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../Store/CartSlice.jsx";
 
 const ItemCardMenu = ({ data }) => {
-  const [cartData, setCartData] = useState([]);
+  // const [cartData, setCartData] = useState([]);
 
   const { name, imageId, finalPrice, defaultPrice, price, description, id } =
     data.card.info;
@@ -16,14 +16,22 @@ const ItemCardMenu = ({ data }) => {
 
   const [desc, setDesc] = useState("");
 
+  // useEffect(() => {
+  //   if (description && description.length > 120) {
+  //     const newDesc = description.substring(0, 120) + "... ";
+  //     setDesc(newDesc);
+  //   } else if (description) {
+  //     setDesc(description);
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (description && description.length > 120) {
-      const newDesc = description.substring(0, 120) + "... ";
-      setDesc(newDesc);
+      setDesc(description.substring(0, 120) + "... ");
     } else if (description) {
       setDesc(description);
     }
-  }, []);
+  }, [description]);
 
   const showDesc = () => {
     setDesc(description);
@@ -31,20 +39,32 @@ const ItemCardMenu = ({ data }) => {
 
   const dispatch = useDispatch();
 
-  const addItemToCart = (
-    id,
-    name,
-    imageId,
-    finalPrice,
-    defaultPrice,
-    price
-  ) => {
+  // const addItemToCart = (
+  //   id,
+  //   name,
+  //   imageId,
+  //   finalPrice,
+  //   defaultPrice,
+  //   price
+  // ) => {
+  //   dispatch(
+  //     addItem({
+  //       id,
+  //       name,
+  //       imageId,
+  //       price: Math.round(finalPrice || defaultPrice || price),
+  //       quantity: 1,
+  //     })
+  //   );
+  // };
+
+  const addItemToCart = () => {
     dispatch(
       addItem({
         id,
         name,
         imageId,
-        price: finalPrice || defaultPrice || price,
+        price: Math.round(finalPrice || defaultPrice || price || 100),
         quantity: 1,
       })
     );
@@ -67,11 +87,13 @@ const ItemCardMenu = ({ data }) => {
           ₹{" "}
           {finalPrice && (
             <span className="line-through">
-              {price / 100 || defaultPrice / 100}
+              {Math.round(price / 100) || Math.round(defaultPrice / 100)}
             </span>
           )}
           <span>
-            {finalPrice ? finalPrice / 100 : price / 100 || defaultPrice / 100}
+            {finalPrice
+              ? Math.round(finalPrice / 100)
+              : Math.round(price / 100) || Math.round(defaultPrice / 100)}
           </span>
         </h3>
         <div className="flex gap-1 items-center font-medium mb-2">
@@ -112,7 +134,14 @@ const ItemCardMenu = ({ data }) => {
           <button
             className="absolute bottom-0 md:bottom-1 md:left-[15%] sm:left-[7rem] bg-gray-50 hover:bg-gray-200 transition-all duration-300 px-12 py-1 text-green-600 font-extrabold text-lg rounded-lg border"
             onClick={() =>
-              addItemToCart(id, name, imageId, finalPrice, defaultPrice, price)
+              addItemToCart(
+                id,
+                name,
+                imageId,
+                Math.round(finalPrice),
+                Math.round(defaultPrice),
+                Math.round(price)
+              )
             }
           >
             ADD

@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import dataSlice from "./dataSlice";
-import CartSlice from "./CartSlice"; // Import CartSlice
+import CartSlice from "./CartSlice";
 
 // Create a persist config for the cart slice
 const cartPersistConfig = {

@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FoodNavbar from "../FoodNavbar/FoodNavbar";
 import TopRestraunt from "../TopRestraunt/TopRestraunt";
 import RestaurantOnline from "../RestaurantOnlineDelivery/RestaurantOnline";
 import Navbar from "../Navbar/Navbar";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { CLOUDINARY_IMG_URL } from "../../utils/Constants";
+import Footer from "../Footer/Footer";
 
 const Home = () => {
   const cartItems = useSelector((store) => store.cart.cartData);
+
   const navigate = useNavigate();
   const cartHandler = () => {
     navigate("/cart");
@@ -21,7 +24,6 @@ const Home = () => {
         <FoodNavbar />
         <TopRestraunt />
         <RestaurantOnline />
-
         {/* Cart Logo on right side */}
         <div
           className={`${
@@ -40,6 +42,9 @@ const Home = () => {
             {cartItems.length}
           </div>
         </div>
+        <hr className="border-[2px] md:ml-8" />
+
+        <Footer />
       </div>
     </>
   );

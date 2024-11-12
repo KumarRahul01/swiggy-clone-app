@@ -11,6 +11,7 @@ import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { persistor } from "../Store/SwiggyStore";
 import toast from "react-hot-toast";
+import Footer from "../Footer/Footer";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.cartData);
@@ -43,7 +44,7 @@ const Cart = () => {
     cartItems.map((item) => {
       price += item.price * item.quantity;
     });
-    setTotalPrice(price / 100);
+    setTotalPrice(Math.round(price / 100));
   }, [cartItems, increaseHandler, decreaseHandler]);
 
   const handleOrder = () => {
@@ -92,13 +93,15 @@ const Cart = () => {
                         ₹{" "}
                         {item.finalPrice && (
                           <span className="line-through">
-                            {item.price / 100 || item.defaultPrice / 100}
+                            {Math.round(item.price / 100) ||
+                              Math.round(item.defaultPrice / 100)}
                           </span>
                         )}
                         <span>
                           {item.finalPrice
-                            ? item.finalPrice / 100
-                            : item.price / 100 || item.defaultPrice / 100}
+                            ? Math.round(item.finalPrice / 100)
+                            : Math.round(item.price / 100) ||
+                              Math.round(item.defaultPrice / 100)}
                         </span>
                       </h3>
                       <h3 className="font-semibold md:font-bold text-lg">
@@ -120,9 +123,9 @@ const Cart = () => {
                           {/* total */}
                           <h3 className="font-semibold">
                             Total: ₹{" "}
-                            {(item.quantity * item.price) / 100 ||
-                              item.defaultPrice / 100 ||
-                              item.finalPrice / 100}
+                            {Math.round((item.quantity * item.price) / 100) ||
+                              Math.round(item.defaultPrice / 100) ||
+                              Math.round(item.finalPrice / 100)}
                           </h3>
                           {/* remove */}
                           <MdDelete
