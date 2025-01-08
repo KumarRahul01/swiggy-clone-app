@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllData } from "../Store/dataSlice";
 import { IMG_SLUG_URL } from "../../utils/Constants";
 import { LocationContext } from "../context/LocationContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const FoodNavbar = () => {
   const navigate = useNavigate();

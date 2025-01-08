@@ -14,16 +14,17 @@ export const getAllData = createAsyncThunk(
   "getAllData",
   async ({ lat, lng }) => {
     // Check screen size
-    const screenWidth = window.innerWidth;
+    // const screenWidth = window.innerWidth;
     let apiUrl;
 
-    if (screenWidth >= 1024) {
-      // For laptops and larger devices
-      apiUrl = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`;
-    } else {
-      // For tablets and mobile devices
-      apiUrl = `https://instafood.onrender.com/api/restaurants?lat=${lat}&lng=${lng}`;
-    }
+    // if (screenWidth >= 1024) {
+    //   // For laptops and larger devices
+    //   apiUrl = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`;
+    // } else {
+    //   // For tablets and mobile devices
+    //   apiUrl = `https://instafood.onrender.com/api/restaurants?lat=${lat}&lng=${lng}`;
+    // }
+    apiUrl = `https://instafood.onrender.com/api/restaurants?lat=${lat}&lng=${lng}`;
 
     // Fetch data from the selected API
     const res = await fetch(apiUrl);
