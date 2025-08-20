@@ -169,7 +169,7 @@ const Cart = () => {
               </div>
             </div>
           ) : (
-            <div className="w-[800px] mx-auto text-center my-40 flex flex-col items-center justify-center">
+            <div className="w-full container mx-auto text-center my-40 flex flex-col items-center justify-center">
               <h1 className="lg:text-3xl font-semibold">
                 Please add something to your cart!
               </h1>
