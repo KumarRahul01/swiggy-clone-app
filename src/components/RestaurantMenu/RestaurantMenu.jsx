@@ -39,6 +39,7 @@ const RestaurantMenu = () => {
       }&restaurantId=${resId}&submitAction=ENTER`
     );
     const data = await res.json();
+    console.log(data)
     setLoading(false);
 
     setResInfo(data?.data?.cards[2].card?.card?.info);
