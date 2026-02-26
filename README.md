@@ -50,7 +50,7 @@ To fetch real-time restaurant data, the app uses the Swiggy API. Ensure that you
 
 ## Customization
 
-To customize the app (e.g., UI, additional features):
+To customize the app (e.g: UI, additional features):
 
 - Modify components in the /src/components directory.
 - Tailwind CSS classes can be adjusted for styling.
